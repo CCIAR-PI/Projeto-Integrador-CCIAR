@@ -1,33 +1,8 @@
-package cci.projetointegrador.entity;
+package cci.projetointegrador.repository;
 
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
-import lombok.Getter;
-import lombok.Setter;
-
-import javax.persistence.*;
-import java.time.LocalDateTime;
-import java.util.List;
-
-@Entity
-@Table (name = "agenda", schema = "public")
-public class Agenda {
-
-    @Id
-    @Getter
-    @Column (name = "id", nullable = false, unique = true)
-    private Long id;
-
-    @Getter
-    @Setter
-    @Column(name = "atividades", nullable = false)
-    @OneToMany (mappedBy = "agenda", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private List <Atividade> atividades;
-
-    @Getter @Setter
-    @Column (name = "dia_atual", nullable = false)
-    private LocalDateTime diaAtual;
-
-    @Getter @Setter
-    @Column (name = "descricao_atividade", nullable = false)
-    private String descricaoAtividade;
+@Repository
+public interface Agenda extends JpaRepository <cci.projetointegrador.entity.Agenda,Long> {
 }
