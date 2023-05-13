@@ -35,9 +35,14 @@ fazendo com que o trabalho seja muito mais complicado e lento de ser feito, tend
 <img src = "https://github.com/CCIAR-PI/Projeto-Integrador-CCIAR/assets/101855454/99a9b1ac-2cc8-453e-8a4f-b8ec9018d355" width = "650px"/>
 
 
-### 👨‍💻 Perfil do administrador 
+### 👨‍💻  Perfil do administrador 
 
 <img src = "https://github.com/CCIAR-PI/Projeto-Integrador-CCIAR/assets/101855454/6e7770f6-991e-4273-942c-ed33780ac8f6" width = "650px"/>
+
+
+### 📆 Agenda
+
+<img src = "https://github.com/CCIAR-PI/Projeto-Integrador-CCIAR/assets/101855454/c3d8c8f4-2915-4155-9ee4-20aee3e538a8" width = "650px"/>
 
 
 ### 💻 Funcionamento do projeto (Em desenvolvimento)
