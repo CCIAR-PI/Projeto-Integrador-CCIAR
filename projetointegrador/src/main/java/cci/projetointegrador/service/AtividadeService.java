@@ -15,8 +15,8 @@ public class AtividadeService {
 
     @Transactional (rollbackFor = Exception.class)
     public void validaAtividade (Atividade atividade){
-        Assert.isTrue(atividade.getNomeAtividade().equals(""), "Nome da atividade não pode ser nulo");
-        Assert.isTrue(atividade.getNomeAtividade().length()  > 100  , "Limite de caracteres excedido");
+        Assert.isTrue(!atividade.getNomeAtividade().equals(""), "Nome da atividade não pode ser nulo");
+        Assert.isTrue(atividade.getNomeAtividade().length()  <= 100  , "Limite de caracteres excedido");
 
 
         this.atividadeRepository.save(atividade);
