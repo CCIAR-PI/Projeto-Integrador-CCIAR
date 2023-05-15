@@ -9,29 +9,29 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-@Controller
-@RequestMapping(value = "/api/pessoa")
+@Controller //indica que a classe se trata de uma Controller
+@RequestMapping(value = "/api/pessoa") //é a anotação utilizada tradicionalmente para implementar URL handler, ela suporta os métodos Post, Get, Put, Delete e Pacth.
 public class PessoaController {
 
-    @Autowired
+    @Autowired //injecao de dependencias de PessoaRepository
     private PessoaRepository pessoaRepository;
 
-    @Autowired
+    @Autowired //injecao de dependencias de PessoaService
     private PessoaService pessoaService;
 
-    @GetMapping ("/{id}")
+    @GetMapping ("/{id}") //@GetMapping Determina que o método aceitará requisições HTTP do tipo GET, e retornar usuário pelo seu ID.
         public ResponseEntity<Pessoa> findByIDPath (@PathVariable("id") final Long id){
             final Pessoa pessoa = this.pessoaRepository.findById(id).orElse(null);
             return ResponseEntity.ok(pessoa);
     }
 
-    @GetMapping("/lista")
+    @GetMapping("/lista")//Temos um método GET/lista para retornar todos os usuários;
     public ResponseEntity<?> ListaCompleta() {
         return ResponseEntity.ok(this.pessoaRepository.findAll());
 
     }
 
-    @PostMapping
+    @PostMapping //@PostMapping: Determina que o método aceitará requisições HTTP do tipo POST. POST/pessoa para salvar um novo usuário;
     public ResponseEntity<?> cadastrar (@RequestBody final Pessoa pessoa) {
         try {
             pessoaService.validaPessoa(pessoa);
@@ -41,7 +41,7 @@ public class PessoaController {
         }
     }
 
-    @PutMapping
+    @PutMapping //@PutMapping: Determina que o método aceitará requisições HTTP do tipo PUT. PUT/pessoa para alterar um usuário;
     public ResponseEntity<?> editar(@RequestParam("id") final Long id, @RequestBody final Pessoa pessoa) {
         try {
             pessoaService.validaPessoa(pessoa);
@@ -58,7 +58,7 @@ public class PessoaController {
             return ResponseEntity.internalServerError().body("Error: " + e.getMessage());
         }
     }
-    @DeleteMapping ("delete/{id}")
+    @DeleteMapping ("delete/{id}") //@DeleteMapping: Determina que o método aceitará requisições HTTP do tipo DELETE.  DELETE/pessoa/delete/{id} para remover um usuário pelo seu id.
 
     public void deletaPessoa (@PathVariable Long id)
     {
