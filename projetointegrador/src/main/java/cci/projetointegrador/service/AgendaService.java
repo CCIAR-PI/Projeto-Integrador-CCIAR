@@ -18,5 +18,4 @@ public class AgendaService {
 
         this.agendaRepository.save(agenda);
     }
-
 }

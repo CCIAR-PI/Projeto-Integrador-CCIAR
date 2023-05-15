@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 @Controller
 public class AgendaController {
+    
         @Autowired
         private AgendaRepository agendaRepository;
         @Autowired
@@ -24,8 +25,10 @@ public class AgendaController {
 
         @GetMapping("/lista")
         public ResponseEntity<?> ListaCompleta() {
-            return ResponseEntity.ok(this.agendaRepository.findAll());
+            return Response
+            Entity.ok(this.agendaRepository.findAll());
         }
+
         @PostMapping
         public ResponseEntity<?> cadastrar (@RequestBody final Agenda agenda) {
             try {
