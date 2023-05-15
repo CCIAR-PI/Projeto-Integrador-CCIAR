@@ -8,18 +8,18 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
-@Service
+@Service //annotation determinando que essa classe se trata de uma service.
 public class PessoaService {
 
-    @Autowired
+    @Autowired //permitem que o Spring injete as dependências de PessoaRepository nesta classe
     private PessoaRepository pessoaRepository;
-    @Autowired
+    @Autowired //injeção das dependências da classe ValidaCpf
     private ValidaCpf validaCpf;
-    @Transactional (rollbackFor = Exception.class)
+    @Transactional (rollbackFor = Exception.class) //colocar o @Transactional nos métodos que precisam de transação, por exemplo: salvar, alterar, excluir, etc., pois assim você garante que eles vão ser executados dentro um contexto transacional e o rollback será feito caso ocorra algum erro.
     public void validaPessoa (Pessoa pessoa)
     {
-        Assert.isTrue(pessoa.getNome().length() <= 50, "Nome acima do limite de caracteres");
         Assert.isTrue(!pessoa.getNome().equals(""), "Nome não pode ser nulo");
+        Assert.isTrue(pessoa.getNome().length() <= 50, "Nome acima do limite de caracteres");
 
         Assert.isTrue(!pessoa.getCpf().equals(""),"CPF não pode ser nulo");
 
