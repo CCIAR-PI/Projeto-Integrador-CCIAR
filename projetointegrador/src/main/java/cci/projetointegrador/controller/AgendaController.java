@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.*;
 public class AgendaController {
         @Autowired
         private AgendaRepository agendaRepository;
-
         @Autowired
         private AgendaService agendaService;
         @GetMapping("/{id}")
@@ -22,6 +21,7 @@ public class AgendaController {
             final Agenda agenda = this.agendaRepository.findById(id).orElse(null);
             return ResponseEntity.ok(agenda);
         }
+
         @GetMapping("/lista")
         public ResponseEntity<?> ListaCompleta() {
             return ResponseEntity.ok(this.agendaRepository.findAll());
@@ -53,11 +53,12 @@ public class AgendaController {
                 return ResponseEntity.internalServerError().body("Error: " + e.getMessage());
             }
         }
-        @DeleteMapping ("delete/{id}")
 
+        @DeleteMapping ("delete/{id}")
         public void deletarAgenda (@PathVariable Long id)
         {
             agendaRepository.deleteById(id);
         }
     }
+
 
