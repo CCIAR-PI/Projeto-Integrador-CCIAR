@@ -35,17 +35,17 @@ public class PessoaService {
         Assert.isTrue(!pessoa.getTelefoneEmergencia().equals(""), "Telefone não pode ser nulo");
         Assert.isTrue(pessoa.getTelefoneEmergencia().length() <= 17, "Telefone inválido");
 
-        Assert.isTrue(!pessoa.getNaturalidade().equals(""), "Naturalidade não pode ser nula");
-        Assert.isTrue(pessoa.getNaturalidade().length() <= 50, "Naturalidade acima do limite de caracteres");
+        Assert.isTrue(!pessoa.getNaturalidade().equals(""), "Campo Naturalidade não pode ser nula");
+        Assert.isTrue(pessoa.getNaturalidade().length() <= 50, "Campo Naturalidade acima do limite de caracteres");
 
-        Assert.isTrue(!pessoa.getNacionalidade().equals(""), "Nacionalidade não pode ser nula");
-        Assert.isTrue(pessoa.getNacionalidade().length() <= 50, "Nacionalidade acima do limite de caracteres");
+        Assert.isTrue(!pessoa.getNacionalidade().equals(""), "Campo Nacionalidade não pode ser nula");
+        Assert.isTrue(pessoa.getNacionalidade().length() <= 50, "Campo Nacionalidade acima do limite de caracteres");
 
-        Assert.isTrue(!pessoa.getRua().equals(""), "RUA não pode ser nulo");
-        Assert.isTrue(pessoa.getRua().length() <= 50, "Rua acima do limite de caracteres");
+        Assert.isTrue(!pessoa.getRua().equals(""), "Campo RUA não pode ser nulo");
+        Assert.isTrue(pessoa.getRua().length() <= 50, "Campo RUA acima do limite de caracteres");
 
-        Assert.isTrue(!pessoa.getBairro().equals(""), "Bairro não pode ser nulo");
-        Assert.isTrue(pessoa.getBairro().length() <= 50, "Bairro acima do limite de caracteres");
+        Assert.isTrue(!pessoa.getBairro().equals(""), "Campo Bairro não pode ser nulo");
+        Assert.isTrue(pessoa.getBairro().length() <= 50, "Campo Bairro acima do limite de caracteres");
 
 
         Assert.isTrue(pessoa.getNumeroCasa() <= 0, "Número da casa não pode ser nulo");
