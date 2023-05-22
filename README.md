@@ -2,7 +2,7 @@
 # • Centro de Convivência do Idoso Afra Roth - Sistema de Cadastro 
 
 <div>
-<strong> • 🧠 Mentes pensantes: Agusto Leão, Gabriel Bogo, João Guillen, Pedro Klaus e Samuel Heidner. </strong> <br>
+<strong> • 🧠 Mentes pensantes: Augusto Leão, Gabriel Bogo, João Guillen, Pedro Klaus e Samuel Heidner. </strong> <br>
 • 🎒 <strong> Projeto Integrador da Universidade UniAmérica. </strong> <br>
 • 💻 <strong> Linguagens: HTML, CSS, JS, Java e SQL. </strong>
 </div> 
