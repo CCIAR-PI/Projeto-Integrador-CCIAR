@@ -9,29 +9,29 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-@Controller
-@RequestMapping(value = "/api/administrador")
+@Controller // Está indicando que a classe é um controller
+@RequestMapping(value = "/api/administrador") // Mapeamento e nivel de classe.
 public class AdministradorController {
-    @Autowired
+    @Autowired // Pegar todas as informações de dentro do AdministradorRepository sem instânciar e criar um objeto novo.
     private AdministradorRepository administradorRep;
 
-    @Autowired
+    @Autowired // Pegar todas as informações de dentro do AdministradorRepository sem instânciar e criar um objeto novo.
     private AdministradorService administradorService;
 
-    @GetMapping("/{id}")
+    @GetMapping("/{id}") // Mapeamento e caminho até o ID.
     public ResponseEntity<Administrador> findByIDPath(@PathVariable("id") final Long id) {
         final Administrador administrador = this.administradorRep.findById(id).orElse(null);
         return ResponseEntity.ok(administrador);
     }
 
 
-    @GetMapping("/lista")
+    @GetMapping("/lista") // Mapeamento e caminho até a lista.
     public ResponseEntity<?> ListaCompleta() {
         return ResponseEntity.ok(this.administradorRep.findAll());
 
     }
 
-    @PostMapping
+    @PostMapping // Mapeamento e caminho até o cadastro.
     public ResponseEntity<?> cadastrar(@RequestBody final Administrador administrador) {
         try {
             administradorService.validaAdm(administrador);
@@ -41,7 +41,7 @@ public class AdministradorController {
         }
     }
 
-    @PutMapping
+    @PutMapping // Mapeamento e nível de escopo
     public ResponseEntity<?> editar(@RequestParam("id") final Long id, @RequestBody final Administrador administrador) {
         try {
             administradorService.validaAdm(administrador);
