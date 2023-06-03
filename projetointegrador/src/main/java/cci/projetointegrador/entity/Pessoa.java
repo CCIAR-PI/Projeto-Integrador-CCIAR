@@ -4,6 +4,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Entity // Indica que a classe é uma tabela.
 @Table (name = "Pessoas", schema = "public")
@@ -55,9 +56,13 @@ public class Pessoa {
     @Getter @Setter
     @Column (name = "cadastro_por", nullable = false)
     private String cadastroPor;
+
+    @Getter @Setter
+    @Column (name = "cadastro_data", nullable = false)
+    private LocalDateTime dataCadastro;
     @Getter @Setter
     @Column (name = "edicao_cadastro", nullable = false)
-    private LocalDate edicaocadastro;
+    private LocalDate edicaoCadastro;
 
     @Getter @Setter
     @Column (name = "ativo", nullable = false)
