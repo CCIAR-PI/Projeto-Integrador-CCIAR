@@ -61,8 +61,8 @@ public class Pessoa {
     @Column (name = "cadastro_data", nullable = false)
     private LocalDateTime dataCadastro;
     @Getter @Setter
-    @Column (name = "edicao_cadastro", nullable = false)
-    private LocalDate edicaoCadastro;
+    @Column (name = "edicao_cadastro")
+    private LocalDateTime edicaoCadastro;
 
     @Getter @Setter
     @Column (name = "ativo", nullable = false)
