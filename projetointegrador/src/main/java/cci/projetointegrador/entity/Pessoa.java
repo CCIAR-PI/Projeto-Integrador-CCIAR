@@ -41,6 +41,16 @@ public class Pessoa {
     @Column (name = "nacionalidade", nullable = false, length = 50)
     private String nacionalidade;
 
+    @Enumerated (EnumType.STRING)
+    @Getter @Setter
+    @Column (name = "escolaridade", nullable = false)
+    private Escolaridade escolaridade;
+
+    @Enumerated (EnumType.STRING)
+    @Getter @Setter
+    @Column (name = "sexo", nullable = false)
+    private Sexo sexo;
+
     @Getter @Setter
     @Column (name = "rua", nullable = false, length = 50)
     private String rua;
@@ -68,9 +78,10 @@ public class Pessoa {
     @Column (name = "ativo", nullable = false)
     private boolean ativo;
 
-    @ManyToOne
-    @JoinColumn (name = "atividadeid")
-    private Atividade atividade;
+//    @ManyToOne
+//    @JoinColumn (name = "atividadeid")
+//    private Atividade atividade;
+
 
 }
 

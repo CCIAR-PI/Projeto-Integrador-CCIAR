@@ -71,6 +71,8 @@ public class PessoaService {
         Assert.isTrue(!pessoa.getCep().equals(""), "CEP não pode ser nulo");
         Assert.isTrue(pessoa.getRua().length() <= 9 , "CEP inválido");
 
+        pessoa.setAtivo(true);
+
         this.pessoaRepository.save(pessoa);
 
     }
