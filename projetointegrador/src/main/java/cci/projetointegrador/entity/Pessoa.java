@@ -18,10 +18,10 @@ public class Pessoa {
     private Long id;
     @Getter @Setter
     @Column (name = "nome", nullable = false, length = 50)
-    private String nome;
+    private String nome; // Validar o nome @Pattern(regexp = "^[a-zA-ZÀ-ÿ\\s]*$", message = "Nome não pode conter caracteres especiais") -- Samuel
     @Getter @Setter
     @Column (name = "cpf", nullable = false, unique = true, length = 14)
-    private String cpf;
+    private String cpf; // Validar CPF usando o @CPF (message = "CPF inválido") e colocando @Valid no RequestBody do PUT e Post da PessoaController -- Pedro
     @Getter @Setter
     @Column (name = "data_nascimento", nullable = false)
     private int dataNascimento;
@@ -35,7 +35,7 @@ public class Pessoa {
 
     @Getter @Setter
     @Column (name = "telefone_emergencia", nullable = false, length = 17)
-    private String telefoneEmergencia;
+    private String telefoneEmergencia; // Validar o tel de emergencia do msm jeito do telefone do ADM - Augusto
     @Getter @Setter
     @Column (name = "naturalidade", nullable = false, length = 50)
     private String naturalidade;

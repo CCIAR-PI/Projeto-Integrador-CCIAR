@@ -6,4 +6,8 @@ import org.springframework.stereotype.Repository;
 
 @Repository //representa que essa classe interface é um repositório extendido de JpaRepository
 public interface PessoaRepository extends JpaRepository <Pessoa,Long> {
+     Pessoa findByCpf(String cpf);
+
+     Pessoa findByRg (String rg);
+
 }

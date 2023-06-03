@@ -3,6 +3,7 @@ package cci.projetointegrador.entity;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.cglib.core.Local;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -27,5 +28,10 @@ public class Agenda {
     @Getter @Setter
     @Column (name = "dia_atual", nullable = false)
     private LocalDateTime diaAtual;
+
+    @PrePersist
+    private void PrePersist (){
+        this.diaAtual = LocalDateTime.now();
+    }
 
 }
