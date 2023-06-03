@@ -54,7 +54,7 @@ public class Pessoa {
     private String cep;
     @Getter @Setter
     @Column (name = "cadastro_por", nullable = false)
-    private LocalDate cadastroPor;
+    private String cadastroPor;
     @Getter @Setter
     @Column (name = "edicao_cadastro", nullable = false)
     private LocalDate edicaocadastro;
