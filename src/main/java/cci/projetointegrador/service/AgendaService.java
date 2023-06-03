@@ -14,7 +14,7 @@ public class AgendaService {
     private AgendaRepository agendaRepository;
     @Transactional(rollbackFor = Exception.class)
     public void validaAgenda (Agenda agenda) {
-        Assert.isTrue(agenda.getDescricaoAtividade().length() <= 100, "Limite de caracteres excedido");
+        Assert.isTrue(agenda.getDescricaoAtividade().length() > 100, "Limite de caracteres excedido");
 
         this.agendaRepository.save(agenda);
     }

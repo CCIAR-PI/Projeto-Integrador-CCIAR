@@ -27,4 +27,7 @@ public class Agenda {
     @Column (name = "dia_atual", nullable = false)
     private LocalDateTime diaAtual;
 
+    @Getter @Setter
+    @Column (name = "descricao_atividade", nullable = false)
+    private String descricaoAtividade1;
 }

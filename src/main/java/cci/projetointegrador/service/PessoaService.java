@@ -20,10 +20,6 @@ public class PessoaService {
     {
         Assert.isTrue(!pessoa.getNome().equals(""), "Nome não pode ser nulo");
         Assert.isTrue(pessoa.getNome().length() <= 50, "Nome acima do limite de caracteres");
-<<<<<<< HEAD
-        Assert.isTrue(!pessoa.getNome().equals(""), "Nome não pode ser nulo");
-=======
->>>>>>> 0491bb082074f6e0f2cc3ae8bf02b98809bd9ed4
 
         Assert.isTrue(!pessoa.getCpf().equals(""),"CPF não pode ser nulo");
 
@@ -39,19 +35,6 @@ public class PessoaService {
         Assert.isTrue(!pessoa.getTelefoneEmergencia().equals(""), "Telefone não pode ser nulo");
         Assert.isTrue(pessoa.getTelefoneEmergencia().length() <= 17, "Telefone inválido");
 
-<<<<<<< HEAD
-        Assert.isTrue(!pessoa.getNaturalidade().equals(""), "Naturalidade não pode ser nula");
-        Assert.isTrue(pessoa.getNaturalidade().length() <= 50, "Naturalidade acima do limite de caracteres");
-
-        Assert.isTrue(!pessoa.getNacionalidade().equals(""), "Nacionalidade não pode ser nula");
-        Assert.isTrue(pessoa.getNacionalidade().length() <= 50, "Nacionalidade acima do limite de caracteres");
-
-        Assert.isTrue(!pessoa.getRua().equals(""), "RUA não pode ser nulo");
-        Assert.isTrue(pessoa.getRua().length() <= 50, "Rua acima do limite de caracteres");
-
-        Assert.isTrue(!pessoa.getBairro().equals(""), "Bairro não pode ser nulo");
-        Assert.isTrue(pessoa.getBairro().length() <= 50, "Bairro acima do limite de caracteres");
-=======
         Assert.isTrue(!pessoa.getNaturalidade().equals(""), "Campo Naturalidade não pode ser nula");
         Assert.isTrue(pessoa.getNaturalidade().length() <= 50, "Campo Naturalidade acima do limite de caracteres");
 
@@ -63,7 +46,6 @@ public class PessoaService {
 
         Assert.isTrue(!pessoa.getBairro().equals(""), "Campo Bairro não pode ser nulo");
         Assert.isTrue(pessoa.getBairro().length() <= 50, "Campo Bairro acima do limite de caracteres");
->>>>>>> 0491bb082074f6e0f2cc3ae8bf02b98809bd9ed4
 
 
         Assert.isTrue(pessoa.getNumeroCasa() <= 0, "Número da casa não pode ser nulo");
