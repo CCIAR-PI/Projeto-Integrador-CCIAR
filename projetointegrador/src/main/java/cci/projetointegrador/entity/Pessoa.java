@@ -3,6 +3,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import javax.validation.constraints.Pattern;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
@@ -27,6 +28,7 @@ public class Pessoa {
     @Getter @Setter
     @Column (name = "rg", nullable = false, unique = true, length = 12)
     private String rg;
+
 //    @Getter @Setter
 //    @Column (name = "hash_imagem", nullable = false, unique = true)
 //    private String hashImg;
@@ -69,7 +71,7 @@ public class Pessoa {
     private String cadastroPor;
 
     @Getter @Setter
-    @Column (name = "cadastro_data", nullable = false)
+    @Column (name = "cadastro_data")
     private LocalDateTime dataCadastro;
     @Getter @Setter
     @Column (name = "edicao_cadastro")

@@ -36,7 +36,7 @@ public class AtividadeController {
     public ResponseEntity<?> cadastrar(@RequestBody final Atividade atividade) {
         try {
             atividadeService.validaAtividade(atividade);
-            return ResponseEntity.ok("Registro cadastrado com sucesso");
+            return ResponseEntity.ok("Atividade cadastrada com sucesso");
         } catch (Exception e) {
             return ResponseEntity.internalServerError().body("Error: " + e.getMessage());
         }
@@ -48,11 +48,10 @@ public class AtividadeController {
             atividadeService.validaAtividade(atividade);
 
             final Atividade atividade1 = this.atividadeRepository.findById(id).orElse(null);
-            if (atividade1 == null || atividade1.getId().equals(atividade.getId())) {
+            if (atividade1 == null || !atividade1.getId().equals(atividade.getId())) {
                 throw new RuntimeException("Nao foi possivel indentificar o registro informado");
             }
-            this.atividadeRepository.save(atividade);
-            return ResponseEntity.ok("Registro Cadastrado com Sucesso");
+            return ResponseEntity.ok("Atividade atualizada com sucesso");
         } catch (DataIntegrityViolationException e) {
             return ResponseEntity.internalServerError()
                     .body("Error: " + e.getCause().getCause().getMessage());

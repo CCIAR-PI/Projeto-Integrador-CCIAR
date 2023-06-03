@@ -15,6 +15,7 @@ public class Agenda {
     @Id
     @Getter
     @Column (name = "id", nullable = false, unique = true)
+    @GeneratedValue (strategy = GenerationType.AUTO)
     private Long id;
 
     @Getter

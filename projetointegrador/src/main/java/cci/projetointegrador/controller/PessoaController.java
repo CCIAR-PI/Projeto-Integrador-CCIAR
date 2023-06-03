@@ -49,7 +49,6 @@ public class PessoaController {
             if (pessoa1 == null || !pessoa1.getId().equals(pessoa.getId())) {
                 throw new RuntimeException("Nao foi possivel identificar o registro informado");
             }
-            this.pessoaRepository.save(pessoa);
             return ResponseEntity.ok("Pessoa atualizada com Sucesso");
         } catch (DataIntegrityViolationException e) {
             return ResponseEntity.internalServerError()

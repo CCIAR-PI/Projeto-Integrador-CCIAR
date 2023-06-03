@@ -2,6 +2,7 @@ package cci.projetointegrador.entity;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.cglib.core.Local;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -28,12 +29,17 @@ public class Atividade {
     private String nomeAutor;
 
     @Getter @Setter
-    @Column (name = "horario_cadastro", nullable = false)
+    @Column (name = "horario_cadastro")
     private LocalDateTime horarioCadastro;
 
     @ManyToOne
     @JoinColumn (name = "agenda_id")
     private Agenda agenda;
+
+    @PrePersist
+    private void PrePersist () {
+        this.horarioCadastro = LocalDateTime.now();
+    }
 
 //    @Getter
 //    @Setter
@@ -42,3 +48,7 @@ public class Atividade {
 //    // Cascade = executa tudo de uma vez
 //    private List<Pessoa> pessoas;
 }
+
+
+
+
