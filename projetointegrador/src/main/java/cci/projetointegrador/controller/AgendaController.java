@@ -25,8 +25,7 @@ public class AgendaController {
 
         @GetMapping("/lista")
         public ResponseEntity<?> ListaCompleta() {
-            return Response
-            Entity.ok(this.agendaRepository.findAll());
+            return ResponseEntity.ok(this.agendaRepository.findAll());
         }
 
         @PostMapping

@@ -27,9 +27,10 @@ public class Pessoa {
     @Getter @Setter
     @Column (name = "rg", nullable = false, unique = true, length = 12)
     private String rg;
-    @Getter @Setter
-    @Column (name = "hash_imagem", nullable = false, unique = true)
-    private String hashImg;
+//    @Getter @Setter
+//    @Column (name = "hash_imagem", nullable = false, unique = true)
+//    private String hashImg;
+
     @Getter @Setter
     @Column (name = "telefone_emergencia", nullable = false, length = 17)
     private String telefoneEmergencia;
@@ -82,6 +83,18 @@ public class Pessoa {
 //    @JoinColumn (name = "atividadeid")
 //    private Atividade atividade;
 
+    @PrePersist
+    private void prePersist ()
+    {
+        this.dataCadastro = LocalDateTime.now();
+        this.ativo = true;
+    }
+
+    @PreUpdate
+    private void preUpdate ()
+    {
+        this.edicaoCadastro = LocalDateTime.now();
+    }
 
 }
 
