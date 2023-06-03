@@ -35,10 +35,10 @@ public class Atividade {
     @JoinColumn (name = "agenda_id")
     private Agenda agenda;
 
-    @Getter
-    @Setter
-    @Column(name = "pessoa", nullable = false)
-    @OneToMany (mappedBy= "atividade", fetch = FetchType.LAZY, cascade = CascadeType.ALL) // Fetch = Carrega só uma vez  e deixa a lista carregada no banco
-    // Cascade = executa tudo de uma vez
-    private List<Pessoa> pessoas;
+//    @Getter
+//    @Setter
+//    @Column(name = "pessoa")
+//    @OneToMany (mappedBy= "atividade", fetch = FetchType.LAZY, cascade = CascadeType.ALL) // Fetch = Carrega só uma vez  e deixa a lista carregada no banco
+//    // Cascade = executa tudo de uma vez
+//    private List<Pessoa> pessoas;
 }
