@@ -19,8 +19,9 @@ public class Administrador {
     private String  loginNome;
 
     @Getter @Setter
+    @Pattern(regexp = "\\(?\\d{2,}\\)?[ -]?\\d{4,}[\\-\\s]?\\d{4}", message = "Formato de telefone inválido")
     @Column (name = "telefone", nullable = false)
-    private String telefone;  // Fazer validação do telefone <-- @Pattern(regexp = "\\(?\\d{2,}\\)?[ -]?\\d{4,}[\\-\\s]?\\d{4}", message = "Formato de telefone inválido") -- Joao
+    private String telefone; 
     @Getter @Setter
     @Column (name = "senha", nullable = false)
     private String senha;
