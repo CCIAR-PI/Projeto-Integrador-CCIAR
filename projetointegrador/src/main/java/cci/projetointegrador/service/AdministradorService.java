@@ -2,6 +2,7 @@ package cci.projetointegrador.service;
 
 import cci.projetointegrador.configs.ValidaCpf;
 import cci.projetointegrador.entity.Administrador;
+import cci.projetointegrador.entity.Pessoa;
 import cci.projetointegrador.repository.AdministradorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -31,6 +32,11 @@ public class AdministradorService {
         Assert.isTrue(!administrador.getTelefone().equals(""), "Telefone não pode ser nulo");
 
         Assert.isTrue(administrador.getEmailRecup().length() <= 60, "E-mail de recuperação acima do limite de 60 caracteres");
+
+
+        Administrador administradorExistente = administradorRepository.findByCpf(administrador.getCpf());
+
+        Assert.isTrue(administradorExistente == null || administradorExistente.equals(administrador.getCpf()), "CPF Já existente"); // ADICIONAR ESSAS MESMAS LINHAS NA CLASSE ADM SERVICE -- PEDRO
 
 
         administradorRepository.save(administrador);

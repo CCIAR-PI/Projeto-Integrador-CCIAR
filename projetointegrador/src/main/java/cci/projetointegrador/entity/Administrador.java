@@ -2,8 +2,10 @@ package cci.projetointegrador.entity;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.validator.constraints.br.CPF;
 
 import javax.persistence.*;
+import javax.validation.constraints.Pattern;
 
 @Entity
 @Table (name = "administrador", schema = "public")
@@ -35,6 +37,7 @@ public class Administrador {
 
     @Getter @Setter
     @Column (name = "cpf_adm", nullable = false)
+    @CPF (message = "CPF inválido")
     private String cpf;
 
 

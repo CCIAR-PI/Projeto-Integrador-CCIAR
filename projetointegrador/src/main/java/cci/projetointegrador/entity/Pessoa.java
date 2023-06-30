@@ -37,7 +37,8 @@ public class Pessoa {
 
     @Getter @Setter
     @Column (name = "telefone_emergencia", nullable = false, length = 17)
-    private String telefoneEmergencia; // Validar o tel de emergencia do msm jeito do telefone do ADM - Augusto
+    @Pattern(regexp = "\\(?\\d{2,}\\)?[ -]?\\d{4,}[\\-\\s]?\\d{4}", message = "Formato de telefone inválido")
+    private String telefoneEmergencia;
     @Getter @Setter
     @Column (name = "naturalidade", nullable = false, length = 50)
     private String naturalidade;

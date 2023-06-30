@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
@@ -32,7 +33,7 @@ public class AdministradorController {
     }
 
     @PostMapping
-    public ResponseEntity<?> cadastrar(@RequestBody final Administrador administrador) {
+    public ResponseEntity<?> cadastrar(@Validated @RequestBody final Administrador administrador) {
         try {
             administradorService.validaAdm(administrador);
             return ResponseEntity.ok("Admnistrador cadastrado com sucesso");
@@ -41,8 +42,8 @@ public class AdministradorController {
         }
     }
 
-    @PutMapping
-    public ResponseEntity<?> editar(@RequestParam("id") final Long id, @RequestBody final Administrador administrador) {
+    @PutMapping ("/{id}")
+    public ResponseEntity<?> editar(@PathVariable("id") final Long id, @Validated @RequestBody final Administrador administrador) {
         try {
             administradorService.validaAdm(administrador);
             final Administrador administrador1 = this.administradorRep.findById(id).orElse(null);
@@ -60,7 +61,7 @@ public class AdministradorController {
         }
     }
 
-    @DeleteMapping("delete/{id}")
+    @DeleteMapping("/{id}")
 
     public void deletarAdministrador(@PathVariable Long id) {
         administradorRep.deleteById(id);
