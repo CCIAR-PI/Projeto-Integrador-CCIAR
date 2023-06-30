@@ -78,6 +78,18 @@ public class PessoaService {
 
     }
 
+    @Transactional (rollbackFor = Exception.class)
+    public void editarPessoa (final Long id){
+        final Pessoa pessoaBanco = this.pessoaRepository.findById(id).orElse(null);
+
+        if (pessoaBanco == null || !pessoaBanco.getId().equals(id)){
+            throw new RuntimeException("Não foi possível identificar o registro informado");
+        }
+
+        this.pessoaRepository.save(pessoaBanco);
+    }
+
+    @Transactional (rollbackFor = Exception.class)
     public void deletarPessoa (final Long id){
         final Pessoa pessoaBanco = this.pessoaRepository.findById(id).orElse(null);
 
