@@ -29,13 +29,8 @@ public class AdministradorService {
         Assert.isTrue(!administrador.getEmail().equals(""), "E-mail não pode ser nulo");
 
         Assert.isTrue(!administrador.getTelefone().equals(""), "Telefone não pode ser nulo");
-//        Assert.isTrue(administrador.getTelefone().length() <= 17, "Telefone inválido"); -- Apagar essa linha - João
 
         Assert.isTrue(administrador.getEmailRecup().length() <= 60, "E-mail de recuperação acima do limite de 60 caracteres");
-
-//        if (this.validaCpf.isCPF(administrador.getCpf()) == false) {
-//            throw new RuntimeException("CPF inválido");
-//        } -- Apagar essa linha
 
 
         administradorRepository.save(administrador);
