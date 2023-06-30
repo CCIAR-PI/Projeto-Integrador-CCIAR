@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 @Controller //indica que a classe se trata de uma Controller
@@ -32,7 +33,7 @@ public class PessoaController {
     }
 
     @PostMapping //@PostMapping: Determina que o método aceitará requisições HTTP do tipo POST. POST/pessoa para salvar um novo usuário;
-    public ResponseEntity<?> cadastrar (@RequestBody final Pessoa pessoa) {
+    public ResponseEntity<?> cadastrar (@Validated @RequestBody final Pessoa pessoa) {
         try {
             pessoaService.validaPessoa(pessoa);
             return ResponseEntity.ok("Pessoa cadastrada com sucesso");
@@ -41,8 +42,8 @@ public class PessoaController {
         }
     }
 
-    @PutMapping //@PutMapping: Determina que o método aceitará requisições HTTP do tipo PUT. PUT/pessoa para alterar um usuário;
-    public ResponseEntity<?> editar(@RequestParam("id") final Long id, @RequestBody final Pessoa pessoa) {
+    @PutMapping("/{id}") //@PutMapping: Determina que o método aceitará requisições HTTP do tipo PUT. PUT/pessoa para alterar um usuário;
+    public ResponseEntity<?> editar(@PathVariable("id") final Long id, @Validated @RequestBody final Pessoa pessoa) {
         try {
             pessoaService.validaPessoa(pessoa);
             final Pessoa pessoa1 = this.pessoaRepository.findById(id).orElse(null);
@@ -57,8 +58,7 @@ public class PessoaController {
             return ResponseEntity.internalServerError().body("Error: " + e.getMessage());
         }
     }
-    @DeleteMapping ("delete/{id}") //@DeleteMapping: Determina que o método aceitará requisições HTTP do tipo DELETE.  DELETE/pessoa/delete/{id} para remover um usuário pelo seu id.
-
+    @DeleteMapping ("/{id}") //@DeleteMapping: Determina que o método aceitará requisições HTTP do tipo DELETE.  DELETE/pessoa/delete/{id} para remover um usuário pelo seu id.
     public void deletaPessoa (@PathVariable Long id)
     {
         pessoaRepository.deleteById(id);

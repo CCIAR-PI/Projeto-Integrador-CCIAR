@@ -1,6 +1,7 @@
 package cci.projetointegrador.entity;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.validator.constraints.br.CPF;
 
 import javax.persistence.*;
 import javax.validation.constraints.Pattern;
@@ -21,6 +22,7 @@ public class Pessoa {
     private String nome; // Validar o nome @Pattern(regexp = "^[a-zA-ZÀ-ÿ\\s]*$", message = "Nome não pode conter caracteres especiais") -- Samuel
     @Getter @Setter
     @Column (name = "cpf", nullable = false, unique = true, length = 14)
+    @CPF (message = "CPF inválido")
     private String cpf; // Validar CPF usando o @CPF (message = "CPF inválido") e colocando @Valid no RequestBody do PUT e Post da PessoaController -- Pedro
     @Getter @Setter
     @Column (name = "data_nascimento", nullable = false)

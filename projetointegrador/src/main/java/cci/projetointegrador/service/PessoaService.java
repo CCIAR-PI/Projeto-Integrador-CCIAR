@@ -27,10 +27,7 @@ public class PessoaService {
 //
         Assert.isTrue(!pessoa.getCpf().equals(""),"CPF não pode ser nulo");
 //
-        if (this.validaCpf.isCPF(pessoa.getCpf()) == false) {
-            throw new RuntimeException("CPF inválido");
-        }
-//
+
         Assert.isTrue(pessoa.getDataNascimento() >= 0, "Data de nascimento não pode ser nula");
 //
         Assert.isTrue(!pessoa.getRg().equals("") , "Rg não pode ser nulo");
