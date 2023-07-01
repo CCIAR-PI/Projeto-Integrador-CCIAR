@@ -2,6 +2,7 @@ package cci.projetointegrador.entity;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.validator.constraints.br.CPF;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.persistence.*;
 import javax.validation.constraints.Pattern;
@@ -10,7 +11,7 @@ import java.time.LocalDateTime;
 
 @Entity // Indica que a classe é uma tabela.
 @Table (name = "Pessoas", schema = "public")
-
+@RequestMapping ("/api/pessoa")
 public class Pessoa {
     @Id
     @Getter
