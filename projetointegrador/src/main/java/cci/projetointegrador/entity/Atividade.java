@@ -3,6 +3,7 @@ package cci.projetointegrador.entity;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.cglib.core.Local;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -10,6 +11,7 @@ import java.util.List;
 
 @Entity
 @Table (name = "atividades", schema = "public")
+@RequestMapping("/api/atividade")
 public class Atividade {
 
     @Getter

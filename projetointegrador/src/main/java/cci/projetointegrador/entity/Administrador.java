@@ -3,12 +3,14 @@ package cci.projetointegrador.entity;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.validator.constraints.br.CPF;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.persistence.*;
 import javax.validation.constraints.Pattern;
 
 @Entity
 @Table (name = "administrador", schema = "public")
+@RequestMapping ("/api/administrador")
 public class Administrador {
     @Id
     @Getter
