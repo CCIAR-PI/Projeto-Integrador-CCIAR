@@ -10,7 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-@Controller
+@Controller //agenda controller
 @RequestMapping(value = "/api/atividade")
 
 public class AtividadeController {
