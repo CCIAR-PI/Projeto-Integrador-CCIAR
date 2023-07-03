@@ -1,6 +1,7 @@
 package cci.projetointegrador.service;
 
 import cci.projetointegrador.entity.Atividade;
+import cci.projetointegrador.entity.Pessoa;
 import cci.projetointegrador.repository.AtividadeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,4 +22,29 @@ public class AtividadeService {
 
         this.atividadeRepository.save(atividade);
     }
+
+    @Transactional (rollbackFor = Exception.class)
+    public void editarAtividade (final Long id, final Atividade atividade) {
+
+        final Atividade atividadeBanco = this.atividadeRepository.findById(id).orElse(null);
+
+        if (atividadeBanco == null || !atividadeBanco.getId().equals(id)) {
+            throw new RuntimeException("Não foi possível identificar o registro informado");
+        }
+
+        this.atividadeRepository.save(atividade);
+    }
+
+    @Transactional (rollbackFor = Exception.class)
+    public void deletarAtividade (final Long id){
+        final Atividade atividadeBanco = this.atividadeRepository.findById(id).orElse(null);
+
+        if (atividadeBanco == null || !atividadeBanco.getId().equals(id)){
+            throw new RuntimeException("Não foi possível identificar o registro informado");
+        }
+
+        this.atividadeRepository.delete(atividadeBanco);
+    }
+
+
 }

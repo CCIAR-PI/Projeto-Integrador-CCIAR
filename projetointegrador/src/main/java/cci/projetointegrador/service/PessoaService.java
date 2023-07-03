@@ -131,19 +131,18 @@ public class PessoaService {
         Assert.isTrue(!pessoa.getCep().equals(""), "CEP não pode ser nulo");
         Assert.isTrue(pessoa.getRua().length() <= 9 , "CEP inválido");
 
-        this.pessoaRepository.save(pessoaBanco);
+        this.pessoaRepository.save(pessoa);
     }
 
     @Transactional (rollbackFor = Exception.class)
-    public void deletarPessoa (final Long id, final Pessoa pessoa){
-        pessoa.setAtivo(false);
+    public void deletarPessoa (final Long id){
         final Pessoa pessoaBanco = this.pessoaRepository.findById(id).orElse(null);
 
         if (pessoaBanco == null || !pessoaBanco.getId().equals(id)){
             throw new RuntimeException("Não foi possível identificar o registro informado");
         }
 
-        this.pessoaRepository.save(pessoaBanco);
+        this.pessoaRepository.delete(pessoaBanco);
     }
 
 

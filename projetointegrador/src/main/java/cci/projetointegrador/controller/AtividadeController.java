@@ -42,8 +42,8 @@ public class AtividadeController {
         }
     }
 
-    @PutMapping
-    public ResponseEntity<?> editar(@RequestParam("id") final Long id, @RequestBody final Atividade atividade) {
+    @PutMapping ("/{id}")
+    public ResponseEntity<?> editar(@PathVariable("id") final Long id, @RequestBody final Atividade atividade) {
         try {
             atividadeService.validaAtividade(atividade);
 
@@ -60,11 +60,17 @@ public class AtividadeController {
         }
     }
 
-    @DeleteMapping("delete/{id}")
-
-    public void deletarAtividade(@PathVariable Long id) {
-        atividadeRepository.deleteById(id);
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> deletaAtividade (@PathVariable ("id") final Long id){
+        try {
+            this.atividadeService.deletarAtividade(id);
+            return ResponseEntity.ok("Registro excluido com sucesso.");
+        }
+        catch (Exception e){
+            return ResponseEntity.internalServerError().body("Error: " + e.getMessage());
+        }
     }
+
 
 }
 

@@ -27,7 +27,7 @@ public class Atividade {
     @Column (name = "descricao", nullable = false)
     private String descricao;
     @Getter @Setter
-    @Column (name = "nome_autor", nullable = false)
+    @Column (name = "nome_autor")
     private String nomeAutor;
 
     @Getter @Setter

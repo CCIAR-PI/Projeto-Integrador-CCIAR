@@ -45,7 +45,7 @@ public class PessoaController {
     @PutMapping("/{id}") //@PutMapping: Determina que o método aceitará requisições HTTP do tipo PUT. PUT/pessoa para alterar um usuário;
     public ResponseEntity<?> editar(@PathVariable("id") final Long id, @Validated @RequestBody final Pessoa pessoa) {
         try {
-            pessoaService.validaPessoa(pessoa);
+            pessoaService.editarPessoa(id, pessoa);
             final Pessoa pessoa1 = this.pessoaRepository.findById(id).orElse(null);
             if (pessoa1 == null || !pessoa1.getId().equals(pessoa.getId())) {
                 throw new RuntimeException("Nao foi possivel identificar o registro informado");
@@ -59,10 +59,15 @@ public class PessoaController {
         }
     }
     @DeleteMapping ("/{id}") //@DeleteMapping: Determina que o método aceitará requisições HTTP do tipo DELETE.  DELETE/pessoa/delete/{id} para remover um usuário pelo seu id.
-    public void deletaPessoa (@PathVariable Long id)
-    {
-        pessoaRepository.deleteById(id);
+    public ResponseEntity<?> deletaPessoa (@PathVariable ("id") final Long id){
+    try {
+        this.pessoaService.deletarPessoa(id);
+        return ResponseEntity.ok("Registro excluido com sucesso.");
     }
+        catch (Exception e){
+        return ResponseEntity.internalServerError().body("Error: " + e.getMessage());
+    }
+}
 
 
 }
