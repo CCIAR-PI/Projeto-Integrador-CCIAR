@@ -1,4 +1,4 @@
-
+![image](https://github.com/CCIAR-PI/Projeto-Integrador-CCIAR/assets/101855454/75e91490-e176-4744-acd3-6b5c005bf05d)
 # • Centro de Convivência do Idoso Afra Roth - Sistema de Cadastro 
 
 <div>
@@ -54,7 +54,8 @@ fazendo com que o trabalho seja muito mais complicado e lento de ser feito, tend
 
 - O mesmo acontece com a tela de atividades:
 
-![image](https://github.com/CCIAR-PI/Projeto-Integrador-CCIAR/assets/101855454/59fcf861-3441-4a89-b2c2-92ffb843c53a)
+![image](https://github.com/CCIAR-PI/Projeto-Integrador-CCIAR/assets/101855454/52ea623e-1a1e-4f73-8bb4-aafc7c170717)
+
 
 
 
