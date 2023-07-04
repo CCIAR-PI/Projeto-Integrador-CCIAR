@@ -29,7 +29,7 @@ public class PessoaService {
         Assert.isTrue(!pessoa.getRg().equals("") , "Rg não pode ser nulo");
         Assert.isTrue(pessoa.getRg().length() <= 9, "Rg inválido");
 
-        Assert.isTrue(!pessoa.getTelefoneEmergencia().equals(""), "Telefone não pode ser nulo");
+        Assert.isTrue(!pessoa.getTelefone().equals(""), "Telefone não pode ser nulo");
 
 
 
@@ -60,7 +60,7 @@ public class PessoaService {
         Assert.isTrue(pessoa.getNumeroCasa() >= 0, "Número da casa não pode ser nulo");
 
         Assert.isTrue(!pessoa.getCep().equals(""), "CEP não pode ser nulo");
-        Assert.isTrue(pessoa.getRua().length() <= 9 , "CEP inválido");
+        Assert.isTrue(pessoa.getCep().length() <= 8 , "CEP inválido");
 
         pessoa.setAtivo(true);
 
@@ -98,7 +98,7 @@ public class PessoaService {
         Assert.isTrue(!pessoa.getRg().equals("") , "Rg não pode ser nulo");
         Assert.isTrue(pessoa.getRg().length() <= 9, "Rg inválido");
 
-        Assert.isTrue(!pessoa.getTelefoneEmergencia().equals(""), "Telefone não pode ser nulo");
+        Assert.isTrue(!pessoa.getTelefone().equals(""), "Telefone não pode ser nulo");
 
 
 
@@ -129,7 +129,6 @@ public class PessoaService {
         Assert.isTrue(pessoa.getNumeroCasa() >= 0, "Número da casa não pode ser nulo");
 
         Assert.isTrue(!pessoa.getCep().equals(""), "CEP não pode ser nulo");
-        Assert.isTrue(pessoa.getRua().length() <= 9 , "CEP inválido");
 
         this.pessoaRepository.save(pessoa);
     }

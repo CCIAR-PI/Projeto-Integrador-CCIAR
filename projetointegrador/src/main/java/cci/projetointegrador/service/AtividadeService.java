@@ -8,6 +8,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
+import java.time.format.DateTimeFormatter;
+
 @Service
 public class AtividadeService {
 
@@ -19,6 +21,8 @@ public class AtividadeService {
         Assert.isTrue(!atividade.getNomeAtividade().equals(""), "Nome da atividade não pode ser nulo");
         Assert.isTrue(atividade.getNomeAtividade().length()  <= 100  , "Limite de caracteres excedido");
 
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
+        String horarioFormatado = atividade.getHorarioCadastro().format(formatter);
 
         this.atividadeRepository.save(atividade);
     }

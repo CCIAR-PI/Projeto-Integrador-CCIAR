@@ -38,9 +38,9 @@ public class Pessoa {
 //    private String hashImg;
 
     @Getter @Setter
-    @Column (name = "telefone_emergencia", nullable = false, length = 17)
+    @Column (name = "telefone", nullable = false, length = 17)
     @Pattern(regexp = "\\(?\\d{2,}\\)?[ -]?\\d{4,}[\\-\\s]?\\d{4}", message = "Formato de telefone inválido")
-    private String telefoneEmergencia;
+    private String telefone;
     @Getter @Setter
     @Column (name = "naturalidade", nullable = false, length = 50)
     private String naturalidade;
@@ -59,6 +59,7 @@ public class Pessoa {
     @Column (name = "sexo", nullable = false)
     private Sexo sexo;
 
+
     @Getter @Setter
     @Column (name = "rua", nullable = false, length = 50)
     private String rua;
@@ -69,7 +70,7 @@ public class Pessoa {
     @Column (name = "numero_casa", nullable = false)
     private int numeroCasa;
     @Getter @Setter
-    @Column (name = "cep", nullable = false, length = 9)
+    @Column (name = "cep")
     private String cep;
     @Getter @Setter
     @Column (name = "cadastro_por")
