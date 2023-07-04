@@ -45,6 +45,23 @@ fazendo com que o trabalho seja muito mais complicado e lento de ser feito, tend
 <img src = "https://github.com/CCIAR-PI/Projeto-Integrador-CCIAR/assets/101855454/c3d8c8f4-2915-4155-9ee4-20aee3e538a8" width = "650px"/>
 
 
-### 💻 Funcionamento do projeto (Em desenvolvimento)
+### 💻 Funcionamento do projeto
+
+- Para cadastrar um novo usuário, o administrador irá clicar no botão Cadastrar e será redirecionado para um formulário, nesse formulário ele irá digitar as informações necessárias para cadastrá-lo, sendo: Nome, CPF, RG, Telefone, etc. Quando finalizado, o cadastrado será adicionado a lista de pessoas:
+
+![image](https://github.com/CCIAR-PI/Projeto-Integrador-CCIAR/assets/101855454/b2454aff-20c3-4149-a2f3-dbf95f4f1117)
+
+
+- O mesmo acontece com a tela de atividades:
+
+![image](https://github.com/CCIAR-PI/Projeto-Integrador-CCIAR/assets/101855454/59fcf861-3441-4a89-b2c2-92ffb843c53a)
+
+
+
+Todos os registros feitos no sistema podem ser editados e exluídos quando necessário, isso e também a exibição dos registros na tela acontecem devido a utilização do 'Axios', uma biblioteca que permite que façamos uma conexão com a nossa API em java.
+
+
+
+
 
 

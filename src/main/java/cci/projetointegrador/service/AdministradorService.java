@@ -9,7 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
 @Service
-public class AdministradorService {
+public class AdministradorService {//inicia a class do adm
 
     @Autowired
     private AdministradorRepository administradorRepository;
