@@ -10,6 +10,8 @@ import projetointegrador.cciar.projetointegradorcciar.entity.Pessoa;
 import projetointegrador.cciar.projetointegradorcciar.repository.PessoaRepository;
 import projetointegrador.cciar.projetointegradorcciar.service.PessoaService;
 
+import java.util.List;
+
 @Controller
 @RequestMapping(value = "/api/pessoa")
 public class PessoaController {
@@ -29,6 +31,11 @@ public class PessoaController {
     public ResponseEntity<?> ListaCompleta() {
         return ResponseEntity.ok(this.pessoaRepository.findAll());
 
+    }
+
+    @GetMapping("/api/pessoa/nome")
+    public List<Pessoa> pesquisarPorNome(@RequestParam String nome) {
+        return pessoaRepository.findByNome(nome);
     }
 
     @PostMapping

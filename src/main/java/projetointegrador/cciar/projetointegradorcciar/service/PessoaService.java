@@ -15,6 +15,7 @@ public class PessoaService {
     public void validaPessoa (Pessoa pessoa)
     {
         Assert.isTrue(!pessoa.getNome().equals(""), "Nome não pode ser nulo");
+
         Assert.isTrue(pessoa.getNome().length() <= 50, "Nome acima do limite de caracteres");
 
         Assert.isTrue(!pessoa.getCpf().equals(""),"CPF não pode ser nulo");
