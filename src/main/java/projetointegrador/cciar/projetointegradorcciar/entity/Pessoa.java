@@ -29,6 +29,10 @@ public class Pessoa {
     @CPF(message = "CPF inválido")
     @NotBlank (message = "CPF não pode ser nulo")
     private String cpf;
+
+    @Getter @Setter
+    @Column (name = "cep")
+    private Endereco endereco;
     @Getter @Setter
     @Column (name = "data_nascimento", nullable = false)
     private int dataNascimento;
@@ -66,21 +70,21 @@ public class Pessoa {
     @Column (name = "sexo", nullable = false)
     private Sexo sexo;
 
-    @Getter @Setter
-    @Column (name = "rua", nullable = false, length = 50)
-    @NotBlank (message = "Rua não pode ser nula")
-    private String rua;
-    @Getter @Setter
-    @Column(name = "bairro", nullable = false, length = 50)
-    @NotBlank (message = "Bairro não pode ser nulo")
-    private String bairro;
-    @Getter @Setter
-    @Column (name = "numero_casa", nullable = false)
-    private int numeroCasa;
-    @Getter @Setter
-    @Column (name = "cep")
-    @NotBlank (message = "CEP não pode ser nulo")
-    private String cep;
+//    @Getter @Setter
+//    @Column (name = "rua", nullable = false, length = 50)
+//    @NotBlank (message = "Rua não pode ser nula")
+//    private String rua;
+//    @Getter @Setter
+//    @Column(name = "bairro", nullable = false, length = 50)
+//    @NotBlank (message = "Bairro não pode ser nulo")
+//    private String bairro;
+//    @Getter @Setter
+//    @Column (name = "numero_casa", nullable = false)
+//    private int numeroCasa;
+//    @Getter @Setter
+//    @Column (name = "cep")
+//    @NotBlank (message = "CEP não pode ser nulo")
+//    private String cep;
     @Getter @Setter
     @Column (name = "cadastro_por")
     private String cadastroPor;
@@ -95,10 +99,6 @@ public class Pessoa {
     @Getter @Setter
     @Column (name = "ativo", nullable = false)
     private boolean ativo;
-
-//    @ManyToOne
-//    @JoinColumn (name = "atividadeid")
-//    private Atividade atividade;
 
     @PrePersist
     private void prePersist ()

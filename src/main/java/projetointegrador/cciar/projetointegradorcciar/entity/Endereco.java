@@ -5,6 +5,10 @@ import lombok.Getter;
 import lombok.Setter;
 
 public class Endereco {
+
+    @Getter @Setter
+    @Column (name = "cep")
+    private String cep;
     @Getter
     @Setter
     @Column(name = "logradouro")
@@ -18,6 +22,11 @@ public class Endereco {
     private String bairro;
 
     @Getter @Setter
+    @Column (name = "n_casa")
+    private int numCasa;
+
+    @Getter @Setter
     @Column(name = "logradouro")
     private String uf;
+
 }

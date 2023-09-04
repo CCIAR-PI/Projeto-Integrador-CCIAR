@@ -15,7 +15,7 @@ public class Atividade {
     @Id
     @Column(name = "atividade", nullable = false, unique = true)
     @GeneratedValue (strategy = GenerationType.AUTO)
-    protected Long id;
+    private Long id;
 
     @Getter @Setter
     @Column (name = "ativo", nullable = false)
