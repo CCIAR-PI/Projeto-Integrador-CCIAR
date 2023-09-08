@@ -27,9 +27,9 @@ public class Atividade {
     @Column(name = "descricao", nullable = false)
     private String descricao;
 
-    //    @Getter @Setter
-//    @Column (name = "nome_autor")
-//    private String nomeAutor;
+    @Getter @Setter
+    @Column (name = "nome_autor")
+    private String nomeAutor;
     @Getter @Setter
     @Column (name = "horario_cadastro")
     private LocalTime horarioCadastro;
