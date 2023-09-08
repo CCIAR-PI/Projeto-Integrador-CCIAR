@@ -3,6 +3,7 @@ package projetointegrador.cciar.projetointegradorcciar.dto;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 
 @Getter
@@ -14,6 +15,8 @@ public class AtividadeDTO {
     private String nomeAtividade;
 
     private String descricao;
+
+    private LocalDateTime dataAtividade;
 
     private LocalTime horarioCadastro;
 }
