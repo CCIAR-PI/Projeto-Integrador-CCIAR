@@ -3,8 +3,8 @@ package projetointegrador.cciar.projetointegradorcciar.entity;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
-import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 
 @Entity
@@ -32,6 +32,10 @@ public class Atividade {
     @Getter @Setter
     @Column (name = "horario_cadastro")
     private LocalTime horarioCadastro;
+
+    @Getter @Setter
+    @Column (name = "data_atividade")
+    private LocalDateTime dataAtividade;
 
 //    @Getter @Setter
 //    @Column (name = "dia_semana")

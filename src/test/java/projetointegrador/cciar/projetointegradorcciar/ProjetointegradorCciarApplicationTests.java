@@ -2,23 +2,11 @@ package projetointegrador.cciar.projetointegradorcciar;
 
 import org.junit.Assert;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import projetointegrador.cciar.projetointegradorcciar.entity.Endereco;
-import projetointegrador.cciar.projetointegradorcciar.entity.Escolaridade;
-import projetointegrador.cciar.projetointegradorcciar.entity.Pessoa;
-import projetointegrador.cciar.projetointegradorcciar.entity.Sexo;
-import projetointegrador.cciar.projetointegradorcciar.service.PessoaService;
+import projetointegrador.cciar.projetointegradorcciar.entity.*;
 
 @SpringBootTest
 class ProjetointegradorCciarApplicationTests {
-
-	@Autowired
-	private PessoaService pessoaService;
-
-	@Test
-	void contextLoads() {
-	}
 
 	@Test
 	public void testPessoa (){
@@ -57,4 +45,34 @@ class ProjetointegradorCciarApplicationTests {
 		Assert.assertEquals(2004, pessoa.getDataNascimento());
 	}
 
+	@Test
+	public void testAtividade () {
+		Atividade atividade = new Atividade();
+
+		atividade.setNomeAtividade("TesteAtividade");
+		atividade.setDescricao("DescricaoAtividade");
+
+		Assert.assertEquals("TesteAtividade", atividade.getNomeAtividade());
+		Assert.assertEquals("DescricaoAtividade", atividade.getDescricao());
+	}
+
+
+	@Test
+	public void testAdministrador (){
+		Administrador administrador = new Administrador();
+
+		administrador.setLoginNome("LoginAdm");
+		administrador.setEmail("EmailAdm");
+		administrador.setSenha("SenhaAdm");
+		administrador.setEmailRecup("EmailRecupAdm");
+		administrador.setTelefone("(45)99958-4575");
+		administrador.setCpf("399.478.260-07");
+
+		Assert.assertEquals("LoginAdm", administrador.getLoginNome());
+		Assert.assertEquals("EmailAdm", administrador.getEmail());
+		Assert.assertEquals("SenhaAdm", administrador.getSenha());
+		Assert.assertEquals("EmailRecupAdm", administrador.getEmailRecup());
+		Assert.assertEquals("(45)99958-4575", administrador.getTelefone());
+		Assert.assertEquals("399.478.260-07", administrador.getCpf());
+	}
 }
