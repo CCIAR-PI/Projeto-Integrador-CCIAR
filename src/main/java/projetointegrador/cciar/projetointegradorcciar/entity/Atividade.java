@@ -9,7 +9,6 @@ import java.time.LocalTime;
 
 @Entity
 @Table(name = "atividades", schema = "public")
-@RequestMapping("/api/atividade")
 public class Atividade {
     @Getter
     @Id

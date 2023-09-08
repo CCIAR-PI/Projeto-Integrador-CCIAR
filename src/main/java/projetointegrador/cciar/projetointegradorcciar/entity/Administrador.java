@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Entity
 @Table(name = "administrador", schema = "public")
-@RequestMapping("/api/administrador")
 public class Administrador {
     @Id
     @Getter

@@ -1,10 +1,22 @@
 package projetointegrador.cciar.projetointegradorcciar.entity;
 
-import jakarta.persistence.Column;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+@Entity
+@Table (name = "tb_endereco", schema = "public")
 public class Endereco {
+
+    @Id
+    @Getter
+    @GeneratedValue(strategy = GenerationType.AUTO) // Gera um valor aleatório
+    @Column(name = "id", nullable = false, unique = true)
+    private Long id;
+
+    @OneToOne
+    @JoinColumn(name = "pessoa_id")
+    private Pessoa pessoa;
 
     @Getter @Setter
     @Column (name = "cep")
@@ -26,7 +38,6 @@ public class Endereco {
     private int numCasa;
 
     @Getter @Setter
-    @Column(name = "logradouro")
+    @Column(name = "uf")
     private String uf;
-
 }

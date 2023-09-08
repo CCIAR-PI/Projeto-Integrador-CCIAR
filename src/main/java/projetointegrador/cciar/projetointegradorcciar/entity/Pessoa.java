@@ -6,14 +6,15 @@ import jakarta.validation.constraints.Pattern;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.validator.constraints.br.CPF;
-import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "Pessoas", schema = "public")
-@RequestMapping("/api/pessoa")
 public class Pessoa {
+
+
+
     @Id
     @Getter
     @GeneratedValue (strategy = GenerationType.AUTO) // Gera um valor aleatório
@@ -31,7 +32,7 @@ public class Pessoa {
     private String cpf;
 
     @Getter @Setter
-    @Column (name = "cep")
+    @OneToOne (mappedBy = "pessoa", cascade = CascadeType.ALL)
     private Endereco endereco;
     @Getter @Setter
     @Column (name = "data_nascimento", nullable = false)
