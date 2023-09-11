@@ -1,9 +1,11 @@
 package projetointegrador.cciar.projetointegradorcciar.service;
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
+import projetointegrador.cciar.projetointegradorcciar.dto.AtividadeDTO;
 import projetointegrador.cciar.projetointegradorcciar.entity.Atividade;
 import projetointegrador.cciar.projetointegradorcciar.repository.AtividadeRepository;
 
@@ -15,7 +17,11 @@ public class AtividadeService {
     private AtividadeRepository atividadeRepository;
 
     @Transactional(rollbackFor = Exception.class)
-    public void validaAtividade (Atividade atividade){
+    public void validaAtividade (AtividadeDTO atividadeDTO){
+
+        var atividade = new Atividade();
+        BeanUtils.copyProperties(atividade, atividade);
+
         Assert.isTrue(!atividade.getNomeAtividade().equals(""), "Nome da atividade não pode ser nulo");
         Assert.isTrue(atividade.getNomeAtividade().length()  <= 100  , "Limite de caracteres excedido");
 

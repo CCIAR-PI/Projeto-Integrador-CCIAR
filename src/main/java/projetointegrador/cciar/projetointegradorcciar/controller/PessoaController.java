@@ -6,6 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import projetointegrador.cciar.projetointegradorcciar.dto.PessoaDTO;
 import projetointegrador.cciar.projetointegradorcciar.entity.Pessoa;
 import projetointegrador.cciar.projetointegradorcciar.repository.PessoaRepository;
 import projetointegrador.cciar.projetointegradorcciar.service.PessoaService;
@@ -39,7 +40,7 @@ public class PessoaController {
     }
 
     @PostMapping
-    public ResponseEntity<?> cadastrar (@Validated @RequestBody final Pessoa pessoa) {
+    public ResponseEntity<?> cadastrar (@Validated @RequestBody final PessoaDTO pessoa) {
         try {
             pessoaService.validaPessoa(pessoa);
             return ResponseEntity.ok("Pessoa cadastrada com sucesso");

@@ -5,6 +5,7 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import projetointegrador.cciar.projetointegradorcciar.dto.AtividadeDTO;
 import projetointegrador.cciar.projetointegradorcciar.entity.Atividade;
 import projetointegrador.cciar.projetointegradorcciar.repository.AtividadeRepository;
 import projetointegrador.cciar.projetointegradorcciar.service.AtividadeService;
@@ -31,7 +32,7 @@ public class AtividadeController {
     }
 
     @PostMapping
-    public ResponseEntity<?> cadastrar(@RequestBody final Atividade atividade) {
+    public ResponseEntity<?> cadastrar(@RequestBody final AtividadeDTO atividade) {
         try {
             atividadeService.validaAtividade(atividade);
             return ResponseEntity.ok("Atividade cadastrada com sucesso");
@@ -43,7 +44,7 @@ public class AtividadeController {
     @PutMapping ("/{id}")
     public ResponseEntity<?> editar(@PathVariable("id") final Long id, @RequestBody final Atividade atividade) {
         try {
-            atividadeService.validaAtividade(atividade);
+            atividadeService.editarAtividade(id,atividade);
 
             final Atividade atividade1 = this.atividadeRepository.findById(id).orElse(null);
             if (atividade1 == null || !atividade1.getId().equals(atividade.getId())) {

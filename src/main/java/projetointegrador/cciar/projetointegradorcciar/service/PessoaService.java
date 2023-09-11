@@ -1,9 +1,11 @@
 package projetointegrador.cciar.projetointegradorcciar.service;
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
+import projetointegrador.cciar.projetointegradorcciar.dto.PessoaDTO;
 import projetointegrador.cciar.projetointegradorcciar.entity.Pessoa;
 import projetointegrador.cciar.projetointegradorcciar.repository.PessoaRepository;
 
@@ -12,8 +14,12 @@ public class PessoaService {
     @Autowired
     private PessoaRepository pessoaRepository;
     @Transactional(rollbackFor = Exception.class)
-    public void validaPessoa (Pessoa pessoa)
+    public void validaPessoa (PessoaDTO pessoaDTO)
     {
+
+        var pessoa = new Pessoa();
+        BeanUtils.copyProperties(pessoaDTO, pessoa);
+
         Assert.isTrue(!pessoa.getNome().equals(""), "Nome não pode ser nulo");
 
         Assert.isTrue(pessoa.getNome().length() <= 50, "Nome acima do limite de caracteres");

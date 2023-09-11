@@ -6,6 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import projetointegrador.cciar.projetointegradorcciar.dto.AdministradorDTO;
 import projetointegrador.cciar.projetointegradorcciar.entity.Administrador;
 import projetointegrador.cciar.projetointegradorcciar.repository.AdministradorRepository;
 import projetointegrador.cciar.projetointegradorcciar.service.AdministradorService;
@@ -33,7 +34,7 @@ public class AdministradorController {
     }
 
     @PostMapping
-    public ResponseEntity<?> cadastrar(@Validated @RequestBody final Administrador administrador) {
+    public ResponseEntity<?> cadastrar(@PathVariable("id") final Long id, @Validated @RequestBody final AdministradorDTO administrador) {
         try {
             administradorService.validaAdm(administrador);
             return ResponseEntity.ok("Admnistrador cadastrado com sucesso");
@@ -45,7 +46,7 @@ public class AdministradorController {
     @PutMapping ("/{id}")
     public ResponseEntity<?> editar(@PathVariable("id") final Long id, @Validated @RequestBody final Administrador administrador) {
         try {
-            administradorService.validaAdm(administrador);
+            administradorService.editaAdm(administrador);
             final Administrador administrador1 = this.administradorRep.findById(id).orElse(null);
 
             if (administrador1 == null || administrador1.getId().equals(administrador.getId())) {
