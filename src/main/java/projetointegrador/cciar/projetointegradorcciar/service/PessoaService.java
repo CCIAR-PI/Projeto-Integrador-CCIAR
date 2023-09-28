@@ -42,8 +42,6 @@ public class PessoaService {
         Assert.isTrue(!pessoa.getNacionalidade().equals(""), "Nacionalidade não pode ser nula");
         Assert.isTrue(pessoa.getNacionalidade().length() <= 50, "Nacionalidade acima do limite de caracteres");
 
-//        Assert.isTrue(pessoa.getEndereco().getCep().equals(""), "CEP não pode ser nulo");
-
         pessoa.setAtivo(true);
 
         Pessoa pessoaExistente = pessoaRepository.findByCpf(pessoa.getCpf());

@@ -129,9 +129,6 @@ class PessoaTests {
         pessoaDTO.setDataCadastro(LocalDateTime.now());
         Assertions.assertNotNull(pessoaDTO.getDataCadastro());
     }
-
-
-
 }
 
 
