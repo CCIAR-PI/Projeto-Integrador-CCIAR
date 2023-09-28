@@ -34,9 +34,9 @@ public class EnderecoController {
     }
 
     @PostMapping
-    public ResponseEntity<String> cadastrar (@Validated @RequestBody final EnderecoDTO enderecoDTO) {
+    public ResponseEntity<String> cadastrar (final Long id, @Validated @RequestBody final EnderecoDTO enderecoDTO) {
         try {
-            enderecoService.validaEndereco(enderecoDTO);
+            enderecoService.validaEndereco(id, enderecoDTO);
             return ResponseEntity.ok("Endereco cadastrado com sucesso");
         } catch (Exception e) {
             return ResponseEntity.internalServerError().body("Error: " + e.getMessage());
@@ -44,9 +44,9 @@ public class EnderecoController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<String> editar(@PathVariable("id") final Long id, @Validated @RequestBody final Endereco endereco) {
+    public ResponseEntity<String> editar(@PathVariable("id") final Long id, @Validated @RequestBody final EnderecoDTO enderecoDTO) {
         try {
-//            pessoaService.editarPessoa(id, pessoa);
+            enderecoService.validaEndereco(id, enderecoDTO);
             return ResponseEntity.ok("Endereco atualizada com Sucesso");
         } catch (DataIntegrityViolationException e) {
             String errorMessage = getErrorMessage(e);
@@ -56,7 +56,7 @@ public class EnderecoController {
     @DeleteMapping ("/{id}")
     public ResponseEntity<String> deletaEndereco (@PathVariable ("id") final Long id){
         try {
-//            this.pessoaService.deletarPessoa(id);
+            enderecoService.deletarEndereco(id);
             return ResponseEntity.ok("Registro excluido com sucesso.");
         }
         catch (Exception e){

@@ -47,10 +47,9 @@ public class AdministradorController {
     }
 
     @PutMapping ("/{id}")
-    public ResponseEntity<String> editar(@PathVariable("id") final Long id, @Validated @RequestBody final Administrador administrador) {
+    public ResponseEntity<String> editar(@PathVariable("id") final Long id, @Validated @RequestBody final AdministradorDTO administradorDTO) {
         try {
-            administradorService.editaAdm(id, administrador);
-            this.administradorRep.save(administrador);
+            administradorService.editaAdm(id, administradorDTO);
             return ResponseEntity.ok("Administrador atualizado com Sucesso");
         } catch (DataIntegrityViolationException e) {
             String errorMessage = getErrorMessage(e);

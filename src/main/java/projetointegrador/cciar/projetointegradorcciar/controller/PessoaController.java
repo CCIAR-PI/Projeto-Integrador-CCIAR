@@ -51,9 +51,9 @@ public class PessoaController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<String> editar(@PathVariable("id") final Long id, @Validated @RequestBody final Pessoa pessoa) {
+    public ResponseEntity<String> editar(@PathVariable("id") final Long id, @Validated @RequestBody final PessoaDTO pessoaDTO) {
         try {
-            pessoaService.editarPessoa(id, pessoa);
+            pessoaService.editarPessoa(id, pessoaDTO);
             return ResponseEntity.ok("Pessoa atualizada com Sucesso");
         } catch (DataIntegrityViolationException e) {
             String errorMessage = getErrorMessage(e);

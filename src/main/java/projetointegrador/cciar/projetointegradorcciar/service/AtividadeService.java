@@ -20,19 +20,18 @@ public class AtividadeService {
     public void validaAtividade (AtividadeDTO atividadeDTO){
 
         var atividade = new Atividade();
-        BeanUtils.copyProperties(atividade, atividade);
+        BeanUtils.copyProperties(atividadeDTO, atividade);
 
-        Assert.isTrue(!atividade.getNomeAtividade().equals(""), "Nome da atividade não pode ser nulo");
-        Assert.isTrue(atividade.getNomeAtividade().length()  <= 100  , "Limite de caracteres excedido");
-
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
-        String horarioFormatado = atividade.getHorarioCadastro().format(formatter);
+        validacao(atividadeDTO);
 
         this.atividadeRepository.save(atividade);
     }
 
     @Transactional (rollbackFor = Exception.class)
-    public void editarAtividade (final Long id, final Atividade atividade) {
+    public void editarAtividade (final Long id, final AtividadeDTO atividadeDTO) {
+
+        var atividade = new Atividade();
+        BeanUtils.copyProperties(atividadeDTO, atividade);
 
         final Atividade atividadeBanco = this.atividadeRepository.findById(id).orElse(null);
 
@@ -40,9 +39,7 @@ public class AtividadeService {
             throw new RegistroNaoEncontradoException("Não foi possível identificar o registro informado");
         }
 
-        Assert.isTrue(!atividade.getNomeAtividade().equals(""), "Nome da atividade não pode ser nulo");
-        Assert.isTrue(atividade.getNomeAtividade().length()  <= 100  , "Limite de caracteres excedido");
-
+       validacao(atividadeDTO);
         this.atividadeRepository.save(atividade);
     }
 
@@ -61,6 +58,17 @@ public class AtividadeService {
         public RegistroNaoEncontradoException(String message) {
             super(message);
         }
+    }
+
+    public void validacao (AtividadeDTO atividadeDTO){
+        var atividade = new Atividade();
+        BeanUtils.copyProperties(atividadeDTO, atividade);
+
+        Assert.isTrue(!atividade.getNomeAtividade().equals(""), "Nome da atividade não pode ser nulo");
+        Assert.isTrue(atividade.getNomeAtividade().length()  <= 100  , "Limite de caracteres excedido");
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
+        String horarioFormatado = atividade.getHorarioCadastro().format(formatter);
     }
 
 }

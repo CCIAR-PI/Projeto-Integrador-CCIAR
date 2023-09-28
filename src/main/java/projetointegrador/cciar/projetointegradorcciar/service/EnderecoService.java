@@ -16,16 +16,40 @@ public class EnderecoService {
     EnderecoRepository enderecoRepository;
 
     @Transactional(rollbackFor = Exception.class)
-    public void validaEndereco (EnderecoDTO enderecoDTO){
+    public void validaEndereco (Long id, EnderecoDTO enderecoDTO){
 
+        var endereco = new Endereco();
+        BeanUtils.copyProperties(enderecoDTO, endereco);
+
+        validacoes(enderecoDTO);
+        this.enderecoRepository.save(endereco);
+    }
+
+    @Transactional(rollbackFor = Exception.class)
+    public void deletarEndereco(Long id) {
+
+        final Endereco enderecoBanco = this.enderecoRepository.findById(id).orElse(null);
+
+        if (enderecoBanco == null || !enderecoBanco.getId().equals(id)){
+            throw new RegistroNaoEncontradoException("Não foi possível identificar o registro informado");
+        }
+        this.enderecoRepository.delete(enderecoBanco);
+    }
+
+
+    public void validacoes (EnderecoDTO enderecoDTO){
         var endereco = new Endereco();
         BeanUtils.copyProperties(enderecoDTO, endereco);
 
         Assert.isTrue(!endereco.getCep().equals(""), "CEP não pode ser nulo");
         Assert.isTrue(endereco.getCep().length()  <= 20  , "Limite de caracteres excedido");
-
-
-        this.enderecoRepository.save(endereco);
     }
+
+    public static class RegistroNaoEncontradoException extends RuntimeException {
+        public RegistroNaoEncontradoException(String message) {
+            super(message);
+        }
+    }
+
 
 }

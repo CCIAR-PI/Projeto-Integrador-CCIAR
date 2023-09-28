@@ -16,7 +16,7 @@ import java.time.LocalDateTime;
 class PessoaTests {
 
     Endereco endereco = new Endereco();
-    PessoaDTO pessoaDTO = new PessoaDTO(1L, "TesteNome", "117.283.639-69", endereco, 27, "8888888", "(45)99965-6820", "Brasileiro", "Brasilian", Escolaridade.CURSANDO, Sexo.MASCULINO, true);
+    PessoaDTO pessoaDTO = new PessoaDTO();
 
 
     @Test

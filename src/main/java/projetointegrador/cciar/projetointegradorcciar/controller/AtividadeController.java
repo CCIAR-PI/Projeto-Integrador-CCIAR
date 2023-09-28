@@ -45,9 +45,9 @@ public class AtividadeController {
     }
 
     @PutMapping ("/{id}")
-    public ResponseEntity<String> editar(@PathVariable("id") final Long id, @RequestBody final Atividade atividade) {
+    public ResponseEntity<String> editar(@PathVariable("id") final Long id, @RequestBody final AtividadeDTO atividadeDTO) {
         try {
-            atividadeService.editarAtividade(id,atividade);
+            atividadeService.editarAtividade(id,atividadeDTO);
             return ResponseEntity.ok("Atividade atualizada com sucesso");
         } catch (DataIntegrityViolationException e) {
             String errorMessage = getErrorMessage(e);
