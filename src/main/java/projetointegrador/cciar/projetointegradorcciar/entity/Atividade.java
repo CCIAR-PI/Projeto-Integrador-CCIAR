@@ -31,13 +31,8 @@ public class Atividade {
     @Column (name = "data_atividade")
     private LocalDateTime dataAtividade;
 
-//    @Getter @Setter
-//    @Column (name = "dia_semana")
-//    private Dia dia;
-
-
     @PrePersist
-    private void PrePersist () {
+    private void prePersist () {
         this.horarioCadastro = LocalTime.now();
         this.ativo = true;
     }

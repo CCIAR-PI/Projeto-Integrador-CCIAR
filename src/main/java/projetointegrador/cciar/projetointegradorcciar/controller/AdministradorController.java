@@ -11,6 +11,8 @@ import projetointegrador.cciar.projetointegradorcciar.entity.Administrador;
 import projetointegrador.cciar.projetointegradorcciar.repository.AdministradorRepository;
 import projetointegrador.cciar.projetointegradorcciar.service.AdministradorService;
 
+import java.util.List;
+
 @Controller
 @RequestMapping(value = "/api/administrador")
 public class AdministradorController {
@@ -28,43 +30,40 @@ public class AdministradorController {
 
 
     @GetMapping("/lista")
-    public ResponseEntity<?> ListaCompleta() {
+    public ResponseEntity<List <Administrador>> listaCompleta() {
         return ResponseEntity.ok(this.administradorRep.findAll());
 
     }
 
     @PostMapping
-    public ResponseEntity<?> cadastrar(@PathVariable("id") final Long id, @Validated @RequestBody final AdministradorDTO administrador) {
+    public ResponseEntity<String> cadastrar(@PathVariable("id") final Long id, @Validated @RequestBody final AdministradorDTO administrador) {
         try {
             administradorService.validaAdm(administrador);
             return ResponseEntity.ok("Admnistrador cadastrado com sucesso");
         } catch (Exception e) {
-            return ResponseEntity.internalServerError().body("Error: " + e.getMessage());
+            String errorMessage = getErrorMessage(e);
+            return ResponseEntity.internalServerError().body(errorMessage);
         }
     }
 
     @PutMapping ("/{id}")
-    public ResponseEntity<?> editar(@PathVariable("id") final Long id, @Validated @RequestBody final Administrador administrador) {
+    public ResponseEntity<String> editar(@PathVariable("id") final Long id, @Validated @RequestBody final Administrador administrador) {
         try {
-            administradorService.editaAdm(administrador);
-            final Administrador administrador1 = this.administradorRep.findById(id).orElse(null);
-
-            if (administrador1 == null || administrador1.getId().equals(administrador.getId())) {
-                throw new RuntimeException("Nao foi possivel indentificar o registro informado");
-            }
+            administradorService.editaAdm(id, administrador);
             this.administradorRep.save(administrador);
             return ResponseEntity.ok("Administrador atualizado com Sucesso");
         } catch (DataIntegrityViolationException e) {
-            return ResponseEntity.internalServerError()
-                    .body("Error: " + e.getCause().getCause().getMessage());
-        } catch (RuntimeException e) {
-            return ResponseEntity.internalServerError().body("Error: " + e.getMessage());
+            String errorMessage = getErrorMessage(e);
+            return ResponseEntity.internalServerError().body(errorMessage);
         }
     }
 
     @DeleteMapping("/{id}")
-
     public void deletarAdministrador(@PathVariable Long id) {
         administradorRep.deleteById(id);
+    }
+
+    private String getErrorMessage(Exception e) {
+        return "Error: " + e.getMessage();
     }
 }

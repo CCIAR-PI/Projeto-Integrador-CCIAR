@@ -10,6 +10,8 @@ import projetointegrador.cciar.projetointegradorcciar.entity.Atividade;
 import projetointegrador.cciar.projetointegradorcciar.repository.AtividadeRepository;
 import projetointegrador.cciar.projetointegradorcciar.service.AtividadeService;
 
+import java.util.List;
+
 @Controller
 @RequestMapping(value = "/api/atividade")
 public class AtividadeController {
@@ -26,48 +28,47 @@ public class AtividadeController {
     }
 
     @GetMapping("/lista")
-    public ResponseEntity<?> ListaCompleta() {
+    public ResponseEntity<List <Atividade>> listaCompleta() {
         return ResponseEntity.ok(this.atividadeRepository.findAll());
 
     }
 
     @PostMapping
-    public ResponseEntity<?> cadastrar(@RequestBody final AtividadeDTO atividade) {
+    public ResponseEntity<String> cadastrar(@RequestBody final AtividadeDTO atividade) {
         try {
             atividadeService.validaAtividade(atividade);
             return ResponseEntity.ok("Atividade cadastrada com sucesso");
         } catch (Exception e) {
-            return ResponseEntity.internalServerError().body("Error: " + e.getMessage());
+            String errorMessage = getErrorMessage(e);
+            return ResponseEntity.internalServerError().body(errorMessage);
         }
     }
 
     @PutMapping ("/{id}")
-    public ResponseEntity<?> editar(@PathVariable("id") final Long id, @RequestBody final Atividade atividade) {
+    public ResponseEntity<String> editar(@PathVariable("id") final Long id, @RequestBody final Atividade atividade) {
         try {
             atividadeService.editarAtividade(id,atividade);
-
-            final Atividade atividade1 = this.atividadeRepository.findById(id).orElse(null);
-            if (atividade1 == null || !atividade1.getId().equals(atividade.getId())) {
-                throw new RuntimeException("Nao foi possivel indentificar o registro informado");
-            }
             return ResponseEntity.ok("Atividade atualizada com sucesso");
         } catch (DataIntegrityViolationException e) {
-            return ResponseEntity.internalServerError()
-                    .body("Error: " + e.getCause().getCause().getMessage());
-        } catch (RuntimeException e) {
-            return ResponseEntity.internalServerError().body("Error: " + e.getMessage());
+            String errorMessage = getErrorMessage(e);
+            return ResponseEntity.internalServerError().body(errorMessage);
         }
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> deletaAtividade (@PathVariable ("id") final Long id){
+    public ResponseEntity<String> deletaAtividade (@PathVariable ("id") final Long id){
         try {
             this.atividadeService.deletarAtividade(id);
             return ResponseEntity.ok("Registro excluido com sucesso.");
         }
         catch (Exception e){
-            return ResponseEntity.internalServerError().body("Error: " + e.getMessage());
+            String errorMessage = getErrorMessage(e);
+            return ResponseEntity.internalServerError().body(errorMessage);
         }
+    }
+
+    private String getErrorMessage(Exception e) {
+        return "Error: " + e.getMessage();
     }
 
 }

@@ -7,6 +7,8 @@ import lombok.Setter;
 @Setter
 public class AdministradorDTO {
     private Long id;
+
+    private String nomeAdm;
     private String loginNome;
 
     private String telefone;

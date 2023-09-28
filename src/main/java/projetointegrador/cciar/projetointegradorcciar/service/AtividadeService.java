@@ -37,8 +37,11 @@ public class AtividadeService {
         final Atividade atividadeBanco = this.atividadeRepository.findById(id).orElse(null);
 
         if (atividadeBanco == null || !atividadeBanco.getId().equals(id)) {
-            throw new RuntimeException("Não foi possível identificar o registro informado");
+            throw new RegistroNaoEncontradoException("Não foi possível identificar o registro informado");
         }
+
+        Assert.isTrue(!atividade.getNomeAtividade().equals(""), "Nome da atividade não pode ser nulo");
+        Assert.isTrue(atividade.getNomeAtividade().length()  <= 100  , "Limite de caracteres excedido");
 
         this.atividadeRepository.save(atividade);
     }
@@ -48,10 +51,16 @@ public class AtividadeService {
         final Atividade atividadeBanco = this.atividadeRepository.findById(id).orElse(null);
 
         if (atividadeBanco == null || !atividadeBanco.getId().equals(id)){
-            throw new RuntimeException("Não foi possível identificar o registro informado");
+            throw new RegistroNaoEncontradoException("Não foi possível identificar o registro informado");
         }
 
         this.atividadeRepository.delete(atividadeBanco);
+    }
+
+    public static class RegistroNaoEncontradoException extends RuntimeException {
+        public RegistroNaoEncontradoException(String message) {
+            super(message);
+        }
     }
 
 }

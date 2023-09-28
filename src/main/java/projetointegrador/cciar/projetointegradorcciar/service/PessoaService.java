@@ -20,7 +20,7 @@ public class PessoaService {
         var pessoa = new Pessoa();
         BeanUtils.copyProperties(pessoaDTO, pessoa);
 
-        Assert.isTrue(!pessoa.getNome().equals(""), "Nome não pode ser nulo");
+//        Assert.isTrue(!pessoa.getNome().equals(""), "Nome não pode ser nulo");
 
         Assert.isTrue(pessoa.getNome().length() <= 50, "Nome acima do limite de caracteres");
 
@@ -42,34 +42,13 @@ public class PessoaService {
         Assert.isTrue(!pessoa.getNacionalidade().equals(""), "Nacionalidade não pode ser nula");
         Assert.isTrue(pessoa.getNacionalidade().length() <= 50, "Nacionalidade acima do limite de caracteres");
 
-//        Assert.isTrue(!pessoa.getRua().equals(""), "RUA não pode ser nulo");
-//        Assert.isTrue(pessoa.getRua().length() <= 50, "Rua acima do limite de caracteres");
-//
-//        Assert.isTrue(!pessoa.getBairro().equals(""), "Bairro não pode ser nulo");
-//        Assert.isTrue(pessoa.getBairro().length() <= 50, "Bairro acima do limite de caracteres");
-//
-//        Assert.isTrue(!pessoa.getNaturalidade().equals(""), "Campo Naturalidade não pode ser nula");
-//        Assert.isTrue(pessoa.getNaturalidade().length() <= 50, "Campo Naturalidade acima do limite de caracteres");
-//
-//
-//        Assert.isTrue(!pessoa.getRua().equals(""), "Campo RUA não pode ser nulo");
-//        Assert.isTrue(pessoa.getRua().length() <= 50, "Campo RUA acima do limite de caracteres");
-//
-//        Assert.isTrue(!pessoa.getBairro().equals(""), "Campo Bairro não pode ser nulo");
-//        Assert.isTrue(pessoa.getBairro().length() <= 50, "Campo Bairro acima do limite de caracteres");
-//
-//
-//
-//        Assert.isTrue(pessoa.getNumeroCasa() >= 0, "Número da casa não pode ser nulo");
-//
-//        Assert.isTrue(!pessoa.getCep().equals(""), "CEP não pode ser nulo");
-//        Assert.isTrue(pessoa.getCep().length() <= 8 , "CEP inválido");
+//        Assert.isTrue(pessoa.getEndereco().getCep().equals(""), "CEP não pode ser nulo");
 
         pessoa.setAtivo(true);
 
-        Pessoa PessoaExistente = pessoaRepository.findByCpf(pessoa.getCpf());
+        Pessoa pessoaExistente = pessoaRepository.findByCpf(pessoa.getCpf());
 
-        Assert.isTrue(PessoaExistente == null || PessoaExistente.equals(pessoa.getCpf()), "CPF Já existente");
+        Assert.isTrue(pessoaExistente == null || pessoaExistente.equals(pessoa.getCpf()), "CPF Já existente");
 
 
         Pessoa rgExistente = pessoaRepository.findByRg(pessoa.getRg());
@@ -87,7 +66,7 @@ public class PessoaService {
         final Pessoa pessoaBanco = this.pessoaRepository.findById(id).orElse(null);
 
         if (pessoaBanco == null || !pessoaBanco.getId().equals(id)){
-            throw new RuntimeException("Não foi possível identificar o registro informado");
+            throw new RegistroNaoEncontradoException("Não foi possível identificar o registro informado");
         }
 
         Assert.isTrue(!pessoa.getNome().equals(""), "Nome não pode ser nulo");
@@ -111,27 +90,7 @@ public class PessoaService {
         Assert.isTrue(!pessoa.getNacionalidade().equals(""), "Nacionalidade não pode ser nula");
         Assert.isTrue(pessoa.getNacionalidade().length() <= 50, "Nacionalidade acima do limite de caracteres");
 
-//        Assert.isTrue(!pessoa.getRua().equals(""), "RUA não pode ser nulo");
-//        Assert.isTrue(pessoa.getRua().length() <= 50, "Rua acima do limite de caracteres");
-//
-//        Assert.isTrue(!pessoa.getBairro().equals(""), "Bairro não pode ser nulo");
-//        Assert.isTrue(pessoa.getBairro().length() <= 50, "Bairro acima do limite de caracteres");
-//
-//        Assert.isTrue(!pessoa.getNaturalidade().equals(""), "Campo Naturalidade não pode ser nula");
-//        Assert.isTrue(pessoa.getNaturalidade().length() <= 50, "Campo Naturalidade acima do limite de caracteres");
-//
-//
-//        Assert.isTrue(!pessoa.getRua().equals(""), "Campo RUA não pode ser nulo");
-//        Assert.isTrue(pessoa.getRua().length() <= 50, "Campo RUA acima do limite de caracteres");
-//
-//        Assert.isTrue(!pessoa.getBairro().equals(""), "Campo Bairro não pode ser nulo");
-//        Assert.isTrue(pessoa.getBairro().length() <= 50, "Campo Bairro acima do limite de caracteres");
-//
-//
-//
-//        Assert.isTrue(pessoa.getNumeroCasa() >= 0, "Número da casa não pode ser nulo");
-//
-//        Assert.isTrue(!pessoa.getCep().equals(""), "CEP não pode ser nulo");
+        Assert.isTrue(pessoa.getEndereco().getCep().equals(""), "CEP não pode ser nulo");
 
         this.pessoaRepository.save(pessoa);
     }
@@ -141,9 +100,15 @@ public class PessoaService {
         final Pessoa pessoaBanco = this.pessoaRepository.findById(id).orElse(null);
 
         if (pessoaBanco == null || !pessoaBanco.getId().equals(id)){
-            throw new RuntimeException("Não foi possível identificar o registro informado");
+            throw new RegistroNaoEncontradoException("Não foi possível identificar o registro informado");
         }
 
         this.pessoaRepository.delete(pessoaBanco);
+    }
+
+    public static class RegistroNaoEncontradoException extends RuntimeException {
+        public RegistroNaoEncontradoException(String message) {
+            super(message);
+        }
     }
 }

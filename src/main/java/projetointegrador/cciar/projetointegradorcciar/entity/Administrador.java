@@ -15,6 +15,9 @@ public class Administrador {
     @Column (name = "id", nullable = false, unique = true)
     private Long id;
 
+    @Column (name = "nome_adm", nullable = false)
+    private String  nomeAdm;
+
     @Column (name = "login_nome", nullable = false)
     private String  loginNome;
 

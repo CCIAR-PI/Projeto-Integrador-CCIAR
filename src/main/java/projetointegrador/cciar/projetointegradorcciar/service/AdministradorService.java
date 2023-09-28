@@ -36,7 +36,7 @@ public class AdministradorService {
 
         Administrador administradorExistente = administradorRepository.findByCpf(administrador.getCpf());
 
-        Assert.isTrue(administradorExistente == null || administradorExistente.equals(administrador.getCpf()), "CPF Já existente"); // ADICIONAR ESSAS MESMAS LINHAS NA CLASSE ADM SERVICE -- PEDRO
+        Assert.isTrue(administradorExistente == null || administradorExistente.equals(administrador.getCpf()), "CPF Já existente");
 
 
         administradorRepository.save(administrador);
@@ -45,7 +45,13 @@ public class AdministradorService {
 
 
     @Transactional(rollbackFor = Exception.class)
-    public void editaAdm (Administrador administrador){
+    public void editaAdm (final Long id, Administrador administrador){
+
+        final Administrador administrador1 = this.administradorRepository.findById(id).orElse(null);
+
+        if (administrador1 == null || administrador1.getId().equals(administrador.getId())) {
+            throw new RegistroNaoEncontradoException("Nao foi possivel indentificar o registro informado");
+        }
 
         Assert.isTrue(administrador.getLoginNome().length() <= 50 ,"Nome de login acima do limite de 50 caracteres");
         Assert.isTrue(!administrador.getLoginNome().equals(""), "Nome de login não pode ser nulo");
@@ -63,10 +69,16 @@ public class AdministradorService {
 
         Administrador administradorExistente = administradorRepository.findByCpf(administrador.getCpf());
 
-        Assert.isTrue(administradorExistente == null || administradorExistente.equals(administrador.getCpf()), "CPF Já existente"); // ADICIONAR ESSAS MESMAS LINHAS NA CLASSE ADM SERVICE -- PEDRO
+        Assert.isTrue(administradorExistente == null || administradorExistente.equals(administrador.getCpf()), "CPF Já existente");
 
 
         administradorRepository.save(administrador);
 
+    }
+
+    public static class RegistroNaoEncontradoException extends RuntimeException {
+        public RegistroNaoEncontradoException(String message) {
+            super(message);
+        }
     }
 }

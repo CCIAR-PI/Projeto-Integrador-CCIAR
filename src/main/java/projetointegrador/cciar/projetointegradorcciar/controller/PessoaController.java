@@ -1,5 +1,6 @@
 package projetointegrador.cciar.projetointegradorcciar.controller;
 
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.ResponseEntity;
@@ -29,7 +30,7 @@ public class PessoaController {
     }
 
     @GetMapping("/lista")
-    public ResponseEntity<?> ListaCompleta() {
+    public ResponseEntity<List <Pessoa>> listaCompleta() {
         return ResponseEntity.ok(this.pessoaRepository.findAll());
 
     }
@@ -40,7 +41,7 @@ public class PessoaController {
     }
 
     @PostMapping
-    public ResponseEntity<?> cadastrar (@Validated @RequestBody final PessoaDTO pessoa) {
+    public ResponseEntity<String> cadastrar (@Valid @RequestBody final PessoaDTO pessoa) {
         try {
             pessoaService.validaPessoa(pessoa);
             return ResponseEntity.ok("Pessoa cadastrada com sucesso");
@@ -50,29 +51,28 @@ public class PessoaController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<?> editar(@PathVariable("id") final Long id, @Validated @RequestBody final Pessoa pessoa) {
+    public ResponseEntity<String> editar(@PathVariable("id") final Long id, @Validated @RequestBody final Pessoa pessoa) {
         try {
             pessoaService.editarPessoa(id, pessoa);
-            final Pessoa pessoa1 = this.pessoaRepository.findById(id).orElse(null);
-            if (pessoa1 == null || !pessoa1.getId().equals(pessoa.getId())) {
-                throw new RuntimeException("Nao foi possivel identificar o registro informado");
-            }
             return ResponseEntity.ok("Pessoa atualizada com Sucesso");
         } catch (DataIntegrityViolationException e) {
-            return ResponseEntity.internalServerError()
-                    .body("Error: " + e.getCause().getCause().getMessage());
-        } catch (RuntimeException e) {
-            return ResponseEntity.internalServerError().body("Error: " + e.getMessage());
+            String errorMessage = getErrorMessage(e);
+            return ResponseEntity.internalServerError().body(errorMessage);
         }
     }
     @DeleteMapping ("/{id}")
-    public ResponseEntity<?> deletaPessoa (@PathVariable ("id") final Long id){
+    public ResponseEntity<String> deletaPessoa (@PathVariable ("id") final Long id){
         try {
             this.pessoaService.deletarPessoa(id);
             return ResponseEntity.ok("Registro excluido com sucesso.");
         }
         catch (Exception e){
-            return ResponseEntity.internalServerError().body("Error: " + e.getMessage());
+            String errorMessage = getErrorMessage(e);
+            return ResponseEntity.internalServerError().body(errorMessage);
         }
+    }
+
+    private String getErrorMessage(Exception e) {
+        return "Error: " + e.getMessage();
     }
 }

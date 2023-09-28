@@ -2,6 +2,7 @@ package projetointegrador.cciar.projetointegradorcciar.entity;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 import lombok.Getter;
 import lombok.Setter;
@@ -15,6 +16,24 @@ import java.time.LocalDateTime;
 public class Pessoa {
 
 
+    public Pessoa() {
+    }
+
+    @SuppressWarnings("squid:S00107")
+    public Pessoa(Long id, String nome, String cpf, Endereco endereco, int dataNascimento, String rg, String telefone, String naturalidade, String nacionalidade, Escolaridade escolaridade, Sexo sexo,boolean ativo) {
+        this.id = id;
+        this.nome = nome;
+        this.cpf = cpf;
+        this.endereco = endereco;
+        this.dataNascimento = dataNascimento;
+        this.rg = rg;
+        this.telefone = telefone;
+        this.naturalidade = naturalidade;
+        this.nacionalidade = nacionalidade;
+        this.escolaridade = escolaridade;
+        this.sexo = sexo;
+        this.ativo = ativo;
+    }
 
     @Id
     @GeneratedValue (strategy = GenerationType.AUTO) // Gera um valor aleatório
@@ -23,23 +42,21 @@ public class Pessoa {
     @Column (name = "nome", nullable = false, length = 50)
     @Pattern(regexp = "^[a-zA-ZÀ-ÿ\\s]*$", message = "Nome não pode conter caracteres especiais")
     @NotBlank (message = "Nome não pode ser nulo")
+    @NotNull (message = "Nome não pode ser nulo")
     private String nome;
     @Column (name = "cpf", nullable = false, unique = true, length = 14)
     @CPF(message = "CPF inválido")
     @NotBlank (message = "CPF não pode ser nulo")
     private String cpf;
 
-    @OneToOne (mappedBy = "pessoa", cascade = CascadeType.ALL)
+    @OneToOne
+    @JoinColumn(name = "endereco_id") // Coluna de chave estrangeira em Pessoa
     private Endereco endereco;
     @Column (name = "data_nascimento", nullable = false)
     private int dataNascimento;
     @Column (name = "rg", nullable = false, unique = true, length = 12)
     @NotBlank (message = "RG não pode ser nulo")
     private String rg;
-
-//    @Getter @Setter
-//    @Column (name = "hash_imagem", nullable = false, unique = true)
-//    private String hashImg;
 
     @Column (name = "telefone", nullable = false, length = 17)
     @Pattern(regexp = "\\(?\\d{2,}\\)?[ -]?\\d{4,}[\\-\\s]?\\d{4}", message = "Formato de telefone inválido")
@@ -61,21 +78,6 @@ public class Pessoa {
     @Column (name = "sexo", nullable = false)
     private Sexo sexo;
 
-//    @Getter @Setter
-//    @Column (name = "rua", nullable = false, length = 50)
-//    @NotBlank (message = "Rua não pode ser nula")
-//    private String rua;
-//    @Getter @Setter
-//    @Column(name = "bairro", nullable = false, length = 50)
-//    @NotBlank (message = "Bairro não pode ser nulo")
-//    private String bairro;
-//    @Getter @Setter
-//    @Column (name = "numero_casa", nullable = false)
-//    private int numeroCasa;
-//    @Getter @Setter
-//    @Column (name = "cep")
-//    @NotBlank (message = "CEP não pode ser nulo")
-//    private String cep;
     @Column (name = "cadastro_por")
     private String cadastroPor;
 

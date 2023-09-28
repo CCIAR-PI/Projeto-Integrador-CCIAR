@@ -14,8 +14,7 @@ public class Endereco {
     @Column(name = "id", nullable = false, unique = true)
     private Long id;
 
-    @OneToOne
-    @JoinColumn(name = "pessoa_id")
+    @OneToOne(mappedBy = "endereco") // Nome do campo em Pessoa
     private Pessoa pessoa;
 
     @Getter @Setter
