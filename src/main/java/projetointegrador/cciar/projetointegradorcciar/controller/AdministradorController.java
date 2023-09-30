@@ -36,7 +36,7 @@ public class AdministradorController {
     }
 
     @PostMapping
-    public ResponseEntity<String> cadastrar(@PathVariable("id") final Long id, @Validated @RequestBody final AdministradorDTO administrador) {
+    public ResponseEntity<String> cadastrar(@Validated @RequestBody final AdministradorDTO administrador) {
         try {
             administradorService.validaAdm(administrador);
             return ResponseEntity.ok("Admnistrador cadastrado com sucesso");
@@ -60,7 +60,7 @@ public class AdministradorController {
     @DeleteMapping("/{id}")
     public ResponseEntity <String> deletarAdministrador(@PathVariable final Long id) {
         try {
-            administradorRep.deleteById(id);
+            administradorService.deletaAdm(id);
             return ResponseEntity.ok("Administrador excluído com sucesso");
         } catch (DataIntegrityViolationException e){
             String errorMessage = getErrorMessage(e);

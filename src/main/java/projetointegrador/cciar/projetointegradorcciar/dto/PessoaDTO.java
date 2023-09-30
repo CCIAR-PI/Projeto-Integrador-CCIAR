@@ -3,36 +3,20 @@ package projetointegrador.cciar.projetointegradorcciar.dto;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.validation.annotation.Validated;
 import projetointegrador.cciar.projetointegradorcciar.entity.*;
 
 import java.time.LocalDateTime;
 
-@Getter
-@Setter
+@Getter @Setter
+@AllArgsConstructor
+@NoArgsConstructor
 @Validated
 public class PessoaDTO {
-
-    public PessoaDTO() {
-    }
-
-    @SuppressWarnings("squid:S00107")
-    public PessoaDTO(Long id, String nome, String cpf, Endereco endereco, int dataNascimento, String rg, String telefone, String naturalidade, String nacionalidade, Escolaridade escolaridade, Sexo sexo,boolean ativo) {
-        this.id = id;
-        this.nome = nome;
-        this.cpf = cpf;
-        this.endereco = endereco;
-        this.dataNascimento = dataNascimento;
-        this.rg = rg;
-        this.telefone = telefone;
-        this.naturalidade = naturalidade;
-        this.nacionalidade = nacionalidade;
-        this.escolaridade = escolaridade;
-        this.sexo = sexo;
-        this.ativo = ativo;
-    }
 
     private Long id;
     @NotNull (message = "Nome não pode ser nulo")

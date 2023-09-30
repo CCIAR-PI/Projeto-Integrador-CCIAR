@@ -10,7 +10,6 @@ class EnderecoTests {
 
     EnderecoDTO enderecoDTO = new EnderecoDTO();
 
-
     @Test
     void testCep (){
         enderecoDTO.setCep("84272-110");

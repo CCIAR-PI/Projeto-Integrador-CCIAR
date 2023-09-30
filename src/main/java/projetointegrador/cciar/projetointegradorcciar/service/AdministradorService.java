@@ -42,6 +42,17 @@ public class AdministradorService {
         administradorRepository.save(administrador);
     }
 
+    @Transactional (rollbackFor = Exception.class)
+    public void deletaAdm (final Long id){
+        final Administrador admBanco = this.administradorRepository.findById(id).orElse(null);
+
+        if (admBanco == null || !admBanco.getId().equals(id)){
+            throw new AdministradorService.RegistroNaoEncontradoException("Não foi possível identificar o registro informado");
+        }
+
+        this.administradorRepository.delete(admBanco);
+    }
+
     public static class RegistroNaoEncontradoException extends RuntimeException {
         public RegistroNaoEncontradoException(String message) {
             super(message);

@@ -2,7 +2,9 @@ package projetointegrador.cciar.projetointegradorcciar.entity;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Pattern;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.validator.constraints.br.CPF;
 
@@ -11,28 +13,9 @@ import java.time.LocalDateTime;
 @Entity
 @Table(name = "Pessoas", schema = "public")
 @Getter @Setter
-
+@AllArgsConstructor @NoArgsConstructor
 public class Pessoa {
 
-
-    public Pessoa() {
-    }
-
-    @SuppressWarnings("squid:S00107")
-    public Pessoa(Long id, String nome, String cpf, Endereco endereco, int dataNascimento, String rg, String telefone, String naturalidade, String nacionalidade, Escolaridade escolaridade, Sexo sexo,boolean ativo) {
-        this.id = id;
-        this.nome = nome;
-        this.cpf = cpf;
-        this.endereco = endereco;
-        this.dataNascimento = dataNascimento;
-        this.rg = rg;
-        this.telefone = telefone;
-        this.naturalidade = naturalidade;
-        this.nacionalidade = nacionalidade;
-        this.escolaridade = escolaridade;
-        this.sexo = sexo;
-        this.ativo = ativo;
-    }
 
     @Id
     @GeneratedValue (strategy = GenerationType.AUTO)

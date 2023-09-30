@@ -22,6 +22,20 @@ public class EnderecoService {
         this.enderecoRepository.save(endereco);
     }
 
+    @Transactional (rollbackFor = Exception.class)
+    public void editarEndereco (final Long id, final EnderecoDTO enderecoDTO) {
+
+        var endereco = new Endereco();
+        BeanUtils.copyProperties(enderecoDTO, endereco);
+
+        final Endereco enderecoBanco = this.enderecoRepository.findById(id).orElse(null);
+
+        if (enderecoBanco == null || !enderecoBanco.getId().equals(id)) {
+            throw new EnderecoService.RegistroNaoEncontradoException("Não foi possível identificar o registro informado");
+        }
+        this.enderecoRepository.save(endereco);
+    }
+
     @Transactional(rollbackFor = Exception.class)
     public void deletarEndereco(Long id) {
 

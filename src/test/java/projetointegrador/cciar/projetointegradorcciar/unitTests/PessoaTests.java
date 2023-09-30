@@ -19,6 +19,7 @@ class PessoaTests {
     PessoaDTO pessoaDTO = new PessoaDTO();
 
 
+
     @Test
     @DisplayName("Testa se o atributo nome está recebendo o valor esperado")
     void validaNome (){
@@ -140,6 +141,36 @@ class PessoaTests {
     void validaDataCadastroNula(){
         pessoaDTO.setDataCadastro(LocalDateTime.now());
         Assertions.assertNotNull(pessoaDTO.getDataCadastro());
+    }
+
+    @Test
+    void validaDataEdicaoCadastro (){
+        pessoaDTO.setEdicaoCadastro(LocalDateTime.now());
+        Assertions.assertEquals(LocalDateTime.now(), pessoaDTO.getEdicaoCadastro());
+    }
+
+    @Test
+    void validaDataEdicaoCadastroNula (){
+        pessoaDTO.setEdicaoCadastro(LocalDateTime.now());
+        Assertions.assertNotNull(pessoaDTO.getEdicaoCadastro());
+    }
+
+    @Test
+    void validaAtivo (){
+        pessoaDTO.setAtivo(true);
+        Assertions.assertEquals(true, pessoaDTO.isAtivo());
+    }
+
+    @Test
+    void validaQuemCadastrou (){
+        pessoaDTO.setCadastroPor("testeAdm");
+        Assertions.assertEquals("testeAdm", pessoaDTO.getCadastroPor());
+    }
+
+    @Test
+    void validaQuemCadastrouNull (){
+        pessoaDTO.setCadastroPor("TesteAdm");
+        Assertions.assertNotNull(pessoaDTO.getCadastroPor());
     }
 }
 

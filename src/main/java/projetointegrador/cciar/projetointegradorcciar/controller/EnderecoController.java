@@ -36,7 +36,7 @@ public class EnderecoController {
     @PostMapping
     public ResponseEntity<String> cadastrar (final Long id, @Validated @RequestBody final EnderecoDTO enderecoDTO) {
         try {
-            enderecoService.validaEndereco(id, enderecoDTO);
+            enderecoService.editarEndereco(id, enderecoDTO);
             return ResponseEntity.ok("Endereco cadastrado com sucesso");
         } catch (Exception e) {
             return ResponseEntity.internalServerError().body("Error: " + e.getMessage());

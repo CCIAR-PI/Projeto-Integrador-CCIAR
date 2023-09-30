@@ -2,13 +2,17 @@ package projetointegrador.cciar.projetointegradorcciar.entity;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Pattern;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.validator.constraints.br.CPF;
 
 @Entity
 @Table(name = "administrador", schema = "public")
 @Getter @Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class Administrador {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO) // Vai gerar um valor aleatório.

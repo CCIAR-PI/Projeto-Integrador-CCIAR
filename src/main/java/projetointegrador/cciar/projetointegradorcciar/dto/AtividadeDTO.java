@@ -5,12 +5,14 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.validation.annotation.Validated;
 
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 
 @Getter
 @Setter
+@Validated
 public class AtividadeDTO {
 
     public AtividadeDTO() {
