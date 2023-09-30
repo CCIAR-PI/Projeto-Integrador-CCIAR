@@ -5,10 +5,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import projetointegrador.cciar.projetointegradorcciar.dto.PessoaDTO;
-import projetointegrador.cciar.projetointegradorcciar.entity.Endereco;
-import projetointegrador.cciar.projetointegradorcciar.entity.Escolaridade;
-import projetointegrador.cciar.projetointegradorcciar.entity.Pessoa;
-import projetointegrador.cciar.projetointegradorcciar.entity.Sexo;
+import projetointegrador.cciar.projetointegradorcciar.entity.*;
 
 import java.time.LocalDateTime;
 
@@ -163,13 +160,15 @@ class PessoaTests {
 
     @Test
     void validaQuemCadastrou (){
-        pessoaDTO.setCadastroPor("testeAdm");
-        Assertions.assertEquals("testeAdm", pessoaDTO.getCadastroPor());
+        Administrador administrador = new Administrador();
+        pessoaDTO.setCadastroPor(administrador);
+        Assertions.assertEquals(administrador, pessoaDTO.getCadastroPor());
     }
 
     @Test
     void validaQuemCadastrouNull (){
-        pessoaDTO.setCadastroPor("TesteAdm");
+        Administrador administrador = new Administrador();
+        pessoaDTO.setCadastroPor(administrador);
         Assertions.assertNotNull(pessoaDTO.getCadastroPor());
     }
 }

@@ -38,8 +38,9 @@ class PessoaIntegrationTests {
     @BeforeEach
     @DisplayName("Injeção de dados que serão utilizados posteriormente no código")
     void injectData() {
-        Pessoa pessoa = new Pessoa(1L, "TesteNome", "11728363969", endereco, 1953, "78945612", "(45)99965-6820", "natTest", "nacTest", Escolaridade.CURSANDO, Sexo.MASCULINO, "Adm", LocalDateTime.now(), LocalDateTime.now(), true);
-        Pessoa pessoa2 = new Pessoa(1L, "TesteNome", "000859026914", endereco, 1943, "78945612", "(45)88865-6820", "natTest", "nacTest", Escolaridade.CURSANDO, Sexo.MASCULINO, "Adm", LocalDateTime.now(), LocalDateTime.now(), true);
+        Administrador administrador = new Administrador();
+        Pessoa pessoa = new Pessoa(1L, "TesteNome", "11728363969", endereco, 1953, "78945612", "(45)99965-6820", "natTest", "nacTest", Escolaridade.CURSANDO, Sexo.MASCULINO, administrador, LocalDateTime.now(), LocalDateTime.now(), true);
+        Pessoa pessoa2 = new Pessoa(1L, "TesteNome", "000859026914", endereco, 1943, "78945612", "(45)88865-6820", "natTest", "nacTest", Escolaridade.CURSANDO, Sexo.MASCULINO, administrador, LocalDateTime.now(), LocalDateTime.now(), true);
         pessoaList = new ArrayList<>();
         pessoaList.add(pessoa);
         pessoaList.add(pessoa2);
@@ -51,7 +52,7 @@ class PessoaIntegrationTests {
     void  testControllerPost() {
         Mockito.when(pessoaController.cadastrar(Mockito.any(PessoaDTO.class))).thenReturn(ResponseEntity.ok("Pessoa cadastrada com sucesso"));
 
-        var pessoa = pessoaController.cadastrar(new PessoaDTO(1L, "TesteNome", "000859026914", endereco, 1943, "78945612", "(45)88865-6820", "natTest", "nacTest", Escolaridade.CURSANDO, Sexo.MASCULINO, "Adm", LocalDateTime.now(), LocalDateTime.now(), true));
+        var pessoa = pessoaController.cadastrar(new PessoaDTO(1L, "TesteNome", "000859026914", endereco, 1943, "78945612", "(45)88865-6820", "natTest", "nacTest", Escolaridade.CURSANDO, Sexo.MASCULINO, new Administrador(), LocalDateTime.now(), LocalDateTime.now(), true));
 
         Assertions.assertEquals("Pessoa cadastrada com sucesso", pessoa.getBody());
     }
@@ -61,7 +62,7 @@ class PessoaIntegrationTests {
     void  testControllerPostError() {
 
         Mockito.when(pessoaController.cadastrar(Mockito.any(PessoaDTO.class))).thenReturn(ResponseEntity.badRequest().body("Ocorreu um erro durante o cadastro"));
-        var pessoa = pessoaController.cadastrar(new PessoaDTO(1L, "TesteNome", "000859026914", endereco, 1943, "78945612", "(45)88865-6820", "natTest", "nacTest", Escolaridade.CURSANDO, Sexo.MASCULINO, "Adm", LocalDateTime.now(), LocalDateTime.now(), true));
+        var pessoa = pessoaController.cadastrar(new PessoaDTO(1L, "TesteNome", "000859026914", endereco, 1943, "78945612", "(45)88865-6820", "natTest", "nacTest", Escolaridade.CURSANDO, Sexo.MASCULINO, new Administrador(), LocalDateTime.now(), LocalDateTime.now(), true));
 
         Assertions.assertEquals("Ocorreu um erro durante o cadastro", pessoa.getBody());
     }
@@ -70,7 +71,7 @@ class PessoaIntegrationTests {
     @DisplayName ("Verifica se o retorno do metodo PUT é uma mensagem de sucesso")
     void testPut () {
         Mockito.when(pessoaController.editar(Mockito.anyLong(), Mockito.any(PessoaDTO.class))).thenReturn(ResponseEntity.ok("Pessoa editada com sucesso"));
-        var pessoa = pessoaController.editar(1L, new PessoaDTO(1L, "TesteNome", "000859026914", endereco, 1943, "78945612", "(45)88865-6820", "natTest", "nacTest", Escolaridade.CURSANDO, Sexo.MASCULINO, "Adm", LocalDateTime.now(), LocalDateTime.now(), true));
+        var pessoa = pessoaController.editar(1L, new PessoaDTO(1L, "TesteNome", "000859026914", endereco, 1943, "78945612", "(45)88865-6820", "natTest", "nacTest", Escolaridade.CURSANDO, Sexo.MASCULINO, new Administrador(), LocalDateTime.now(), LocalDateTime.now(), true));
 
         Assertions.assertEquals("Pessoa editada com sucesso", pessoa.getBody());
         Assertions.assertNotNull(pessoa);
@@ -81,7 +82,7 @@ class PessoaIntegrationTests {
     void  testControllerPutError() {
 
         Mockito.when(pessoaController.editar(Mockito.anyLong(),Mockito.any(PessoaDTO.class))).thenReturn(ResponseEntity.badRequest().body("Ocorreu um erro durante o cadastro"));
-        var pessoa = pessoaController.editar(1L, new PessoaDTO(1L, "TesteNome", "000859026914", endereco, 1943, "78945612", "(45)88865-6820", "natTest", "nacTest", Escolaridade.CURSANDO, Sexo.MASCULINO, "Adm", LocalDateTime.now(), LocalDateTime.now(), true));
+        var pessoa = pessoaController.editar(1L, new PessoaDTO(1L, "TesteNome", "000859026914", endereco, 1943, "78945612", "(45)88865-6820", "natTest", "nacTest", Escolaridade.CURSANDO, Sexo.MASCULINO, new Administrador(), LocalDateTime.now(), LocalDateTime.now(), true));
 
         Assertions.assertEquals("Ocorreu um erro durante o cadastro", pessoa.getBody());
     }
@@ -107,9 +108,9 @@ class PessoaIntegrationTests {
     @Test
     @DisplayName("Verifica se o metodo findById está retornando o ID que desejamos")
     void testGetIdUsuario(){
-        Mockito.when(pessoaController.findByIDPath(Mockito.anyLong())).thenReturn(ResponseEntity.ok(new Pessoa(1L, "TesteNome", "000859026914", endereco, 1943, "78945612", "(45)88865-6820", "natTest", "nacTest", Escolaridade.CURSANDO, Sexo.MASCULINO, "Adm", LocalDateTime.now(), LocalDateTime.now(), true)));
+        Mockito.when(pessoaController.findByIDPath(Mockito.anyLong())).thenReturn(ResponseEntity.ok(new Pessoa(1L, "TesteNome", "000859026914", endereco, 1943, "78945612", "(45)88865-6820", "natTest", "nacTest", Escolaridade.CURSANDO, Sexo.MASCULINO, new Administrador(), LocalDateTime.now(), LocalDateTime.now(), true)));
 
-        pessoaController.cadastrar(new PessoaDTO(1L, "TesteNome", "000859026914", endereco, 1943, "78945612", "(45)88865-6820", "natTest", "nacTest", Escolaridade.CURSANDO, Sexo.MASCULINO, "Adm", LocalDateTime.now(), LocalDateTime.now(), true));
+        pessoaController.cadastrar(new PessoaDTO(1L, "TesteNome", "000859026914", endereco, 1943, "78945612", "(45)88865-6820", "natTest", "nacTest", Escolaridade.CURSANDO, Sexo.MASCULINO, new Administrador(), LocalDateTime.now(), LocalDateTime.now(), true));
         var pessoa = pessoaController.findByIDPath(1L);
 
         Assertions.assertEquals(1L, pessoa.getBody().getId());
@@ -149,7 +150,7 @@ class PessoaIntegrationTests {
     @Test
     @DisplayName("Valida se uma pessoa é realmente deletada do banco")
     void testDeletePessoa() {
-        Pessoa pessoa = new Pessoa(1L, "TesteNome", "000859026914", endereco, 1943, "78945612", "(45)88865-6820", "natTest", "nacTest", Escolaridade.CURSANDO, Sexo.MASCULINO, "Adm", LocalDateTime.now(), LocalDateTime.now(), true);
+        Pessoa pessoa = new Pessoa(1L, "TesteNome", "000859026914", endereco, 1943, "78945612", "(45)88865-6820", "natTest", "nacTest", Escolaridade.CURSANDO, Sexo.MASCULINO, new Administrador(), LocalDateTime.now(), LocalDateTime.now(), true);
         Mockito.when(pessoaRepository.findById(1L)).thenReturn(java.util.Optional.of(pessoa));
 
         pessoaService.deletarPessoa(1L);
@@ -159,7 +160,7 @@ class PessoaIntegrationTests {
     @Test
     @DisplayName("O mockito faz uma simulação de que existe uma pessoa já com um determinado CPF existente e valida se nesse caso é retornado uma exception")
     void testCpfExistente() {
-        PessoaDTO pessoaDTO = new PessoaDTO(1L, "TesteNome", "000859026914", endereco, 1943, "78945612", "(45)88865-6820", "natTest", "nacTest", Escolaridade.CURSANDO, Sexo.MASCULINO, "Adm", LocalDateTime.now(), LocalDateTime.now(), true);
+        PessoaDTO pessoaDTO = new PessoaDTO(1L, "TesteNome", "000859026914", endereco, 1943, "78945612", "(45)88865-6820", "natTest", "nacTest", Escolaridade.CURSANDO, Sexo.MASCULINO, new Administrador(), LocalDateTime.now(), LocalDateTime.now(), true);
         pessoaDTO.setCpf("11728363969");
 
         Mockito.when(pessoaRepository.findByCpf(Mockito.any())).thenReturn(new Pessoa());
@@ -170,7 +171,7 @@ class PessoaIntegrationTests {
     @Test
     @DisplayName("O mockito faz uma simulação de que existe uma pessoa já com um determinado RG existente e valida se nesse caso é retornado uma exception")
     void testRgExistente() {
-        PessoaDTO pessoaDTO = new PessoaDTO(1L, "TesteNome", "000859026914", endereco, 1943, "78945612", "(45)88865-6820", "natTest", "nacTest", Escolaridade.CURSANDO, Sexo.MASCULINO, "Adm", LocalDateTime.now(), LocalDateTime.now(), true);
+        PessoaDTO pessoaDTO = new PessoaDTO(1L, "TesteNome", "000859026914", endereco, 1943, "78945612", "(45)88865-6820", "natTest", "nacTest", Escolaridade.CURSANDO, Sexo.MASCULINO, new Administrador(), LocalDateTime.now(), LocalDateTime.now(), true);
         Mockito.when(pessoaRepository.findByRg(Mockito.any())).thenReturn(new Pessoa());
 
         Assertions.assertNotNull(pessoaDTO);
@@ -181,7 +182,7 @@ class PessoaIntegrationTests {
     @Test
     @DisplayName("Verifica se uma pessoa é realmente salva no banco")
     void testSaveBanco (){
-        Pessoa pessoa = new Pessoa(1L, "TesteNome", "000859026914", endereco, 1943, "78945612", "(45)88865-6820", "natTest", "nacTest", Escolaridade.CURSANDO, Sexo.MASCULINO, "Adm", LocalDateTime.now(), LocalDateTime.now(), true);
+        Pessoa pessoa = new Pessoa(1L, "TesteNome", "000859026914", endereco, 1943, "78945612", "(45)88865-6820", "natTest", "nacTest", Escolaridade.CURSANDO, Sexo.MASCULINO, new Administrador(), LocalDateTime.now(), LocalDateTime.now(), true);
         Mockito.when(pessoaRepository.findById(1L)).thenReturn(java.util.Optional.of(pessoa));
 
         pessoaRepository.save(pessoa);

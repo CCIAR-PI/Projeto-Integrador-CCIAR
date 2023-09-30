@@ -13,6 +13,7 @@ import org.springframework.http.ResponseEntity;
 import projetointegrador.cciar.projetointegradorcciar.controller.AdministradorController;
 import projetointegrador.cciar.projetointegradorcciar.dto.AdministradorDTO;
 import projetointegrador.cciar.projetointegradorcciar.entity.Administrador;
+import projetointegrador.cciar.projetointegradorcciar.entity.Pessoa;
 import projetointegrador.cciar.projetointegradorcciar.repository.AdministradorRepository;
 import projetointegrador.cciar.projetointegradorcciar.service.AdministradorService;
 
@@ -34,8 +35,10 @@ class AdministradorIntegrationTests {
     @BeforeEach
     @DisplayName("Injeção de dados que serão utilizados posteriormente no código")
     void injectData() {
-        Administrador administrador = new Administrador(1L, "TesteNome", "loginNome",  "(45)99965-6820", "senhaTest", "emailTest", "emailRecupTest", "11728363969");
-        Administrador administrador2 = new Administrador(1L, "TesteNome2", "loginNome2",  "(45)88865-6820", "senhaTest2", "emailTest2", "emailRecupTest2", "00859026914");
+        Pessoa pessoa = new Pessoa();
+
+        Administrador administrador = new Administrador(pessoa , 1L, "TesteNome", "loginNome",  "(45)99965-6820", "senhaTest", "emailTest", "emailRecupTest", "11728363969");
+        Administrador administrador2 = new Administrador(pessoa , 1L, "TesteNome2", "loginNome2",  "(45)88865-6820", "senhaTest2", "emailTest2", "emailRecupTest2", "00859026914");
         administradorList = new ArrayList<>();
         administradorList.add(administrador);
         administradorList.add(administrador2);
@@ -102,7 +105,8 @@ class AdministradorIntegrationTests {
     @Test
     @DisplayName("Verifica se o metodo findById está retornando o ID que desejamos")
     void testGetIdAdm(){
-        Mockito.when(administradorController.findByIDPath(Mockito.anyLong())).thenReturn(ResponseEntity.ok(new Administrador(1L, "TesteNome2", "loginNome2",  "(45)88865-6820", "senhaTest2", "emailTest2", "emailRecupTest2", "00859026914")));
+        Pessoa pessoa = new Pessoa();
+        Mockito.when(administradorController.findByIDPath(Mockito.anyLong())).thenReturn(ResponseEntity.ok(new Administrador(pessoa , 1L, "TesteNome2", "loginNome2",  "(45)88865-6820", "senhaTest2", "emailTest2", "emailRecupTest2", "00859026914")));
         var administrador = administradorController.findByIDPath(1L);
 
         Assertions.assertEquals(1L, administrador.getBody().getId());
@@ -144,7 +148,8 @@ class AdministradorIntegrationTests {
     @Test
     @DisplayName("Valida se um ADM é realmente deletada do banco")
     void testDeleteAdm() {
-        Administrador administrador = new Administrador(1L, "TesteNome2", "loginNome2",  "(45)88865-6820", "senhaTest2", "emailTest2", "emailRecupTest2", "00859026914");
+        Pessoa pessoa = new Pessoa();
+        Administrador administrador = new Administrador(pessoa, 1L, "TesteNome2", "loginNome2",  "(45)88865-6820", "senhaTest2", "emailTest2", "emailRecupTest2", "00859026914");
         Mockito.when(administradorRepository.findById(1L)).thenReturn(java.util.Optional.of(administrador));
 
         administradorService.deletaAdm(1L);
@@ -155,7 +160,8 @@ class AdministradorIntegrationTests {
     @Test
     @DisplayName("Verifica se um ADM é realmente salva no banco")
     void testSaveBanco (){
-        Administrador administrador = new Administrador(1L, "TesteNome2", "loginNome2",  "(45)88865-6820", "senhaTest2", "emailTest2", "emailRecupTest2", "00859026914");
+        Pessoa pessoa = new Pessoa();
+        Administrador administrador = new Administrador(pessoa, 1L, "TesteNome2", "loginNome2",  "(45)88865-6820", "senhaTest2", "emailTest2", "emailRecupTest2", "00859026914");
         Mockito.when(administradorRepository.findById(1L)).thenReturn(java.util.Optional.of(administrador));
 
         administradorRepository.save(administrador);
