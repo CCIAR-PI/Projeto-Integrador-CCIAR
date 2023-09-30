@@ -7,6 +7,18 @@ import lombok.Setter;
 @Entity
 @Table (name = "tb_endereco", schema = "public")
 public class Endereco {
+    public Endereco() {
+    }
+
+    public Endereco(Long id, String cep, String logradouro, String localidade, String bairro, int numCasa, String uf) {
+        this.id = id;
+        this.cep = cep;
+        this.logradouro = logradouro;
+        this.localidade = localidade;
+        this.bairro = bairro;
+        this.numCasa = numCasa;
+        this.uf = uf;
+    }
 
     @Id
     @Getter

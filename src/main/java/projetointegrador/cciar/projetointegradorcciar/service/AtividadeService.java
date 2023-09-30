@@ -4,7 +4,6 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.util.Assert;
 import projetointegrador.cciar.projetointegradorcciar.dto.AtividadeDTO;
 import projetointegrador.cciar.projetointegradorcciar.entity.Atividade;
 import projetointegrador.cciar.projetointegradorcciar.repository.AtividadeRepository;
@@ -63,9 +62,6 @@ public class AtividadeService {
     public void validacao (AtividadeDTO atividadeDTO){
         var atividade = new Atividade();
         BeanUtils.copyProperties(atividadeDTO, atividade);
-
-        Assert.isTrue(!atividade.getNomeAtividade().equals(""), "Nome da atividade não pode ser nulo");
-        Assert.isTrue(atividade.getNomeAtividade().length()  <= 100  , "Limite de caracteres excedido");
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
         String horarioFormatado = atividade.getHorarioCadastro().format(formatter);

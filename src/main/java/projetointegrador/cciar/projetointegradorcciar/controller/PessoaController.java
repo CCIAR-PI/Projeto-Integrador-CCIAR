@@ -1,6 +1,5 @@
 package projetointegrador.cciar.projetointegradorcciar.controller;
 
-import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.ResponseEntity;
@@ -32,7 +31,6 @@ public class PessoaController {
     @GetMapping("/lista")
     public ResponseEntity<List <Pessoa>> listaCompleta() {
         return ResponseEntity.ok(this.pessoaRepository.findAll());
-
     }
 
     @GetMapping("/api/pessoa/nome")
@@ -41,7 +39,7 @@ public class PessoaController {
     }
 
     @PostMapping
-    public ResponseEntity<String> cadastrar (@Valid @RequestBody final PessoaDTO pessoa) {
+    public ResponseEntity<String> cadastrar (@Validated @RequestBody final PessoaDTO pessoa) {
         try {
             pessoaService.validaPessoa(pessoa);
             return ResponseEntity.ok("Pessoa cadastrada com sucesso");
@@ -72,7 +70,7 @@ public class PessoaController {
         }
     }
 
-    private String getErrorMessage(Exception e) {
+    public String getErrorMessage(Exception e) {
         return "Error: " + e.getMessage();
     }
 }

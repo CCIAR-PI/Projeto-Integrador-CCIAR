@@ -25,7 +25,7 @@ public class PessoaService {
         Pessoa rgExistente = pessoaRepository.findByRg(pessoa.getRg());
         Assert.isTrue(rgExistente == null || rgExistente.equals(pessoa.getRg()), "RG Já existente");
 
-        validacao(pessoaDTO);
+        pessoa.setAtivo(true);
         this.pessoaRepository.save(pessoa);
     }
 
@@ -40,8 +40,6 @@ public class PessoaService {
         if (pessoaBanco == null || !pessoaBanco.getId().equals(id)){
             throw new RegistroNaoEncontradoException("Não foi possível identificar o registro informado");
         }
-
-        validacao(pessoaDTO);
         this.pessoaRepository.save(pessoa);
     }
 
@@ -62,32 +60,4 @@ public class PessoaService {
         }
     }
 
-    public void validacao (PessoaDTO pessoaDTO){
-        var pessoa = new Pessoa();
-        BeanUtils.copyProperties(pessoaDTO, pessoa);
-
-        Assert.isTrue(!pessoa.getNome().equals(""), "Nome não pode ser nulo");
-
-        Assert.isTrue(pessoa.getNome().length() <= 50, "Nome acima do limite de caracteres");
-
-        Assert.isTrue(!pessoa.getCpf().equals(""),"CPF não pode ser nulo");
-
-
-        Assert.isTrue(pessoa.getDataNascimento() >= 0, "Data de nascimento não pode ser nula");
-
-        Assert.isTrue(!pessoa.getRg().equals("") , "Rg não pode ser nulo");
-        Assert.isTrue(pessoa.getRg().length() <= 9, "Rg inválido");
-
-        Assert.isTrue(!pessoa.getTelefone().equals(""), "Telefone não pode ser nulo");
-
-
-
-        Assert.isTrue(!pessoa.getNaturalidade().equals(""), "Naturalidade não pode ser nula");
-        Assert.isTrue(pessoa.getNaturalidade().length() <= 50, "Naturalidade acima do limite de caracteres");
-
-        Assert.isTrue(!pessoa.getNacionalidade().equals(""), "Nacionalidade não pode ser nula");
-        Assert.isTrue(pessoa.getNacionalidade().length() <= 50, "Nacionalidade acima do limite de caracteres");
-
-        pessoa.setAtivo(true);
-    }
 }

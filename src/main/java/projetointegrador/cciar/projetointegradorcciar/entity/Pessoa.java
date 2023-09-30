@@ -5,12 +5,14 @@ import jakarta.validation.constraints.Pattern;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.validator.constraints.br.CPF;
+import org.springframework.validation.annotation.Validated;
 
 import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "Pessoas", schema = "public")
 @Getter @Setter
+@Validated
 public class Pessoa {
 
 

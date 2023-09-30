@@ -95,9 +95,21 @@ class PessoaTests {
     }
 
     @Test
-    void validaSexo(){
+    void validaSexoM(){
         pessoaDTO.setSexo(Sexo.MASCULINO);
         Assertions.assertEquals(Sexo.MASCULINO, pessoaDTO.getSexo());
+    }
+
+    @Test
+    void validaSexoF(){
+        pessoaDTO.setSexo(Sexo.FEMININO);
+        Assertions.assertEquals(Sexo.FEMININO, pessoaDTO.getSexo());
+    }
+
+    @Test
+    void validaSexoO(){
+        pessoaDTO.setSexo(Sexo.OUTRO);
+        Assertions.assertEquals(Sexo.OUTRO, pessoaDTO.getSexo());
     }
 
     @Test
