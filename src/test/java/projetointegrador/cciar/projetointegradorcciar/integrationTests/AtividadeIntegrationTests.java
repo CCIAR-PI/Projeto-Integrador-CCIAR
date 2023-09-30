@@ -19,6 +19,7 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @SpringBootTest
 class AtividadeIntegrationTests {
@@ -44,6 +45,7 @@ class AtividadeIntegrationTests {
         atividadesList.add(atividade2);
     }
 
+    // * Testes controller *//
     @Test
     @DisplayName("Verifica se o retorno do metodo POST é uma mensagem de êxito")
     void  testControllerPost() {
@@ -105,6 +107,7 @@ class AtividadeIntegrationTests {
     }
 
     @Test
+    @DisplayName("Verifica se o metodo findById está retornando o ID que desejamos")
     void testGetIdAtividade(){
         Mockito.when(atividadeController.findByIDPath(Mockito.anyLong())).thenReturn(ResponseEntity.ok(new Atividade(1L, true, "testeAtiv", "descricaoAtiv", LocalTime.now(), LocalDateTime.now())));
         var atividade = atividadeController.findByIDPath(1L);
@@ -113,6 +116,7 @@ class AtividadeIntegrationTests {
     }
 
     @Test
+    @DisplayName("Verifica se ao chamar o método lista, é retornado uma lista de pessoas")
     void testGetAllAtividades(){
         Mockito.when(atividadeController.listaCompleta()).thenReturn(ResponseEntity.ok(atividadesList));
 
@@ -124,4 +128,44 @@ class AtividadeIntegrationTests {
         }
     }
 
+    // * Testes Service * //
+    @Test
+    @DisplayName("Valida a exceção que deve ser exibida caso o registro que deseja editar não exista")
+    void testEditarRegistroNaoEncontrado() {
+        AtividadeDTO atividadeDTO = new AtividadeDTO();
+
+        Mockito.when(atividadeRepository.findById(1L)).thenReturn(java.util.Optional.empty());
+        Assertions.assertThrows(AtividadeService.RegistroNaoEncontradoException.class, () -> atividadeService.editarAtividade(1L, atividadeDTO));
+    }
+
+    @Test
+    @DisplayName("Valida a exceção que deve ser exibida caso o registro que deseja excluir não exista")
+    void testExcluirRegistroNaoEncontrado() {
+        AtividadeDTO atividadeDTO = new AtividadeDTO();
+
+        Mockito.when(atividadeRepository.findById(1L)).thenReturn(java.util.Optional.empty());
+        Assertions.assertThrows(AtividadeService.RegistroNaoEncontradoException.class, () -> atividadeService.deletarAtividade(1L));
+    }
+
+    @Test
+    @DisplayName("Verifica se uma atividade é realmente deletada do banco")
+    void testDeleteService () {
+        Atividade atividade = new Atividade(1L, true, "testeAtiv", "descricaoAtiv", LocalTime.now(), LocalDateTime.now());
+        Mockito.when(atividadeRepository.findById(1L)).thenReturn(Optional.of(atividade));
+
+        atividadeService.deletarAtividade(1L);
+        Mockito.verify(atividadeRepository).delete(atividade);
+    }
+
+
+    // * Teste repository * //
+    @Test
+    @DisplayName("Verifica se uma atividade é realmente salva no banco")
+    void testSaveBanco (){
+        Atividade atividade = new Atividade(1L, true, "testeAtiv", "descricaoAtiv", LocalTime.now(), LocalDateTime.now());
+        Mockito.when(atividadeRepository.findById(1L)).thenReturn(java.util.Optional.of(atividade));
+
+        atividadeRepository.save(atividade);
+        Mockito.verify(atividadeRepository).save(atividade);
+    }
 }

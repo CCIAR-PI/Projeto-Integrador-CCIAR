@@ -58,8 +58,14 @@ public class AdministradorController {
     }
 
     @DeleteMapping("/{id}")
-    public void deletarAdministrador(@PathVariable Long id) {
-        administradorRep.deleteById(id);
+    public ResponseEntity <String> deletarAdministrador(@PathVariable final Long id) {
+        try {
+            administradorRep.deleteById(id);
+            return ResponseEntity.ok("Administrador excluído com sucesso");
+        } catch (DataIntegrityViolationException e){
+            String errorMessage = getErrorMessage(e);
+            return ResponseEntity.internalServerError().body(errorMessage);
+        }
     }
 
     private String getErrorMessage(Exception e) {

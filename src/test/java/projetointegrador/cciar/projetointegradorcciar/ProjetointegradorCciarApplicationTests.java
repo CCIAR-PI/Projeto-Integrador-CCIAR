@@ -8,7 +8,7 @@ import projetointegrador.cciar.projetointegradorcciar.entity.Pessoa;
 class ProjetointegradorCciarApplicationTests {
 
 	@Test
-	public void testPessoa () {
+    void testPessoa () {
         Pessoa pessoa = new Pessoa();
         pessoa.setNome("Teste");
 
