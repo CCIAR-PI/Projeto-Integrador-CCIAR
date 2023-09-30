@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import projetointegrador.cciar.projetointegradorcciar.dto.AtividadeDTO;
 import projetointegrador.cciar.projetointegradorcciar.entity.Atividade;
@@ -34,7 +35,7 @@ public class AtividadeController {
     }
 
     @PostMapping
-    public ResponseEntity<String> cadastrar(@RequestBody final AtividadeDTO atividade) {
+    public ResponseEntity<String> cadastrar(@Validated @RequestBody final AtividadeDTO atividade) {
         try {
             atividadeService.validaAtividade(atividade);
             return ResponseEntity.ok("Atividade cadastrada com sucesso");
@@ -45,7 +46,7 @@ public class AtividadeController {
     }
 
     @PutMapping ("/{id}")
-    public ResponseEntity<String> editar(@PathVariable("id") final Long id, @RequestBody final AtividadeDTO atividadeDTO) {
+    public ResponseEntity<String> editar(@PathVariable("id") final Long id, @Validated @RequestBody final AtividadeDTO atividadeDTO) {
         try {
             atividadeService.editarAtividade(id,atividadeDTO);
             return ResponseEntity.ok("Atividade atualizada com sucesso");

@@ -12,6 +12,20 @@ import java.time.LocalTime;
 @Getter
 @Setter
 public class AtividadeDTO {
+
+    public AtividadeDTO() {
+    }
+
+    public AtividadeDTO(Long id, boolean ativo, String nomeAtividade, String descricao, LocalTime horarioCadastro, LocalDateTime dataAtividade) {
+        this.id = id;
+        this.ativo = ativo;
+        this.nomeAtividade = nomeAtividade;
+        this.descricao = descricao;
+        this.horarioCadastro = horarioCadastro;
+        this.dataAtividade = dataAtividade;
+    }
+
+
     private Long id;
     private boolean ativo;
 

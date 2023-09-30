@@ -11,6 +11,19 @@ import java.time.LocalTime;
 @Table(name = "atividades", schema = "public")
 @Getter @Setter
 public class Atividade {
+
+    public Atividade() {
+    }
+
+    public Atividade(Long id, boolean ativo, String nomeAtividade, String descricao, LocalTime horarioCadastro, LocalDateTime dataAtividade) {
+        this.id = id;
+        this.ativo = ativo;
+        this.nomeAtividade = nomeAtividade;
+        this.descricao = descricao;
+        this.horarioCadastro = horarioCadastro;
+        this.dataAtividade = dataAtividade;
+    }
+
     @Id
     @Column(name = "atividade", nullable = false, unique = true)
     @GeneratedValue (strategy = GenerationType.AUTO)
@@ -23,8 +36,6 @@ public class Atividade {
     @Column(name = "descricao", nullable = false)
     private String descricao;
 
-    @Column (name = "nome_autor")
-    private String nomeAutor;
     @Column (name = "horario_cadastro")
     private LocalTime horarioCadastro;
 
