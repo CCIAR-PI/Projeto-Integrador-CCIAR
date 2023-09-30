@@ -39,9 +39,9 @@ public class PessoaController {
     }
 
     @PostMapping
-    public ResponseEntity<String> cadastrar (@Validated @RequestBody final PessoaDTO pessoa) {
+    public ResponseEntity<String> cadastrar (@Validated @RequestBody final PessoaDTO pessoaDTO) {
         try {
-            pessoaService.validaPessoa(pessoa);
+            pessoaService.validaPessoa(pessoaDTO);
             return ResponseEntity.ok("Pessoa cadastrada com sucesso");
         } catch (Exception e) {
             return ResponseEntity.internalServerError().body("Error: " + e.getMessage());
@@ -62,7 +62,7 @@ public class PessoaController {
     public ResponseEntity<String> deletaPessoa (@PathVariable ("id") final Long id){
         try {
             this.pessoaService.deletarPessoa(id);
-            return ResponseEntity.ok("Registro excluido com sucesso.");
+            return ResponseEntity.ok("Pessoa excluida com sucesso.");
         }
         catch (Exception e){
             String errorMessage = getErrorMessage(e);

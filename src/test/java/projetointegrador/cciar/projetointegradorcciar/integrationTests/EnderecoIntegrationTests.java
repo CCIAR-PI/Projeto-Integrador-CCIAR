@@ -48,10 +48,10 @@ class EnderecoIntegrationTests {
     @Test
     @DisplayName("Verifica se o retorno do metodo POST é uma mensagem de êxito")
     void  testControllerPost() {
-        Mockito.when(enderecoController.cadastrar(Mockito.anyLong(),Mockito.any(EnderecoDTO.class))).thenReturn(ResponseEntity.ok("Endereco cadastrado com sucesso"));
+        Mockito.when(enderecoController.cadastrar(Mockito.any(EnderecoDTO.class))).thenReturn(ResponseEntity.ok("Endereco cadastrado com sucesso"));
 
         Pessoa pessoa = new Pessoa();
-        var endereco = enderecoController.cadastrar(1L, new EnderecoDTO(pessoa, "85867-264", "testeLogradouro", "testeLocalidade", "testeBairro", 14, "testeUf"));
+        var endereco = enderecoController.cadastrar(new EnderecoDTO(pessoa, "85867-264", "testeLogradouro", "testeLocalidade", "testeBairro", 14, "testeUf"));
 
         Assertions.assertEquals("Endereco cadastrado com sucesso", endereco.getBody());
     }

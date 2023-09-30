@@ -15,8 +15,8 @@ import org.springframework.validation.annotation.Validated;
 @AllArgsConstructor
 @NoArgsConstructor
 public class AdministradorDTO {
-    private Long id;
 
+    private Long id;
     @NotNull(message = "Nome não pode ser nulo")
     @NotBlank(message = "Nome não estar ser em branco")
     @Size(max = 50, message = "Nome excede limite de caracteres")

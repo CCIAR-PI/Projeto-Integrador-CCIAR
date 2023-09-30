@@ -1,5 +1,6 @@
 package projetointegrador.cciar.projetointegradorcciar.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Pattern;
 import lombok.AllArgsConstructor;
@@ -14,8 +15,12 @@ import org.hibernate.validator.constraints.br.CPF;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Administrador {
+
+    @OneToOne(mappedBy = "cadastroPor") // Nome do campo em Pessoa
+    @JsonBackReference
+    private Pessoa pessoa;
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO) // Vai gerar um valor aleatório.
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column (name = "id", nullable = false, unique = true)
     private Long id;
 

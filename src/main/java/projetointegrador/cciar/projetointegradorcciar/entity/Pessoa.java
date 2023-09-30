@@ -1,5 +1,6 @@
 package projetointegrador.cciar.projetointegradorcciar.entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Pattern;
 import lombok.AllArgsConstructor;
@@ -15,8 +16,6 @@ import java.time.LocalDateTime;
 @Getter @Setter
 @AllArgsConstructor @NoArgsConstructor
 public class Pessoa {
-
-
     @Id
     @GeneratedValue (strategy = GenerationType.AUTO)
     @Column(name = "id", nullable = false, unique = true)
@@ -53,8 +52,10 @@ public class Pessoa {
     @Column (name = "sexo", nullable = false)
     private Sexo sexo;
 
-    @Column (name = "cadastro_por")
-    private String cadastroPor;
+    @OneToOne
+    @JoinColumn(name = "adm_id")
+    @JsonManagedReference
+    private Administrador cadastroPor;
 
     @Column (name = "cadastro_data")
     private LocalDateTime dataCadastro;
@@ -76,4 +77,7 @@ public class Pessoa {
     {
         this.edicaoCadastro = LocalDateTime.now();
     }
+
+
 }
+

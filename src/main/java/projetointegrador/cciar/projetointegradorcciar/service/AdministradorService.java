@@ -31,15 +31,15 @@ public class AdministradorService {
     @Transactional(rollbackFor = Exception.class)
     public void editaAdm (final Long id, AdministradorDTO administradorDTO){
 
-        var administrador = new Administrador();
-        BeanUtils.copyProperties(administradorDTO, administrador);
-
         final Administrador administrador1 = this.administradorRepository.findById(id).orElse(null);
 
-        if (administrador1 == null || administrador1.getId().equals(administradorDTO.getId())) {
+        if (administrador1 == null || !administrador1.getId().equals(id)) {
             throw new RegistroNaoEncontradoException("Nao foi possivel indentificar o registro informado");
         }
-        administradorRepository.save(administrador);
+
+        BeanUtils.copyProperties(administradorDTO, administrador1);
+
+        administradorRepository.save(administrador1);
     }
 
     @Transactional (rollbackFor = Exception.class)

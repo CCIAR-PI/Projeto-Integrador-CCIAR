@@ -60,7 +60,7 @@ public class AtividadeController {
     public ResponseEntity<String> deletaAtividade (@PathVariable ("id") final Long id){
         try {
             this.atividadeService.deletarAtividade(id);
-            return ResponseEntity.ok("Registro excluido com sucesso.");
+            return ResponseEntity.ok("Atividade excluida com sucesso.");
         }
         catch (Exception e){
             String errorMessage = getErrorMessage(e);

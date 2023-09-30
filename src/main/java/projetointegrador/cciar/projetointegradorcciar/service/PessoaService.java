@@ -7,12 +7,17 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 import projetointegrador.cciar.projetointegradorcciar.dto.PessoaDTO;
 import projetointegrador.cciar.projetointegradorcciar.entity.Pessoa;
+import projetointegrador.cciar.projetointegradorcciar.repository.AdministradorRepository;
 import projetointegrador.cciar.projetointegradorcciar.repository.PessoaRepository;
 
 @Service
 public class PessoaService {
     @Autowired
     private PessoaRepository pessoaRepository;
+
+    @Autowired
+    private AdministradorRepository administradorRepository;
+
     @Transactional(rollbackFor = Exception.class)
     public void validaPessoa (PessoaDTO pessoaDTO)
     {

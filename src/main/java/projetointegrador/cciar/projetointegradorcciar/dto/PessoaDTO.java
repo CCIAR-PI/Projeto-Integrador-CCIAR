@@ -8,7 +8,10 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.validation.annotation.Validated;
-import projetointegrador.cciar.projetointegradorcciar.entity.*;
+import projetointegrador.cciar.projetointegradorcciar.entity.Administrador;
+import projetointegrador.cciar.projetointegradorcciar.entity.Endereco;
+import projetointegrador.cciar.projetointegradorcciar.entity.Escolaridade;
+import projetointegrador.cciar.projetointegradorcciar.entity.Sexo;
 
 import java.time.LocalDateTime;
 
@@ -50,7 +53,7 @@ public class PessoaDTO {
 
     private Sexo sexo;
 
-    private String cadastroPor;
+    private Administrador cadastroPor;
 
     private LocalDateTime dataCadastro;
 

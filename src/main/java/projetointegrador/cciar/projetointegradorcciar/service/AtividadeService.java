@@ -25,15 +25,15 @@ public class AtividadeService {
     @Transactional (rollbackFor = Exception.class)
     public void editarAtividade (final Long id, final AtividadeDTO atividadeDTO) {
 
-        var atividade = new Atividade();
-        BeanUtils.copyProperties(atividadeDTO, atividade);
-
         final Atividade atividadeBanco = this.atividadeRepository.findById(id).orElse(null);
 
         if (atividadeBanco == null || !atividadeBanco.getId().equals(id)) {
             throw new RegistroNaoEncontradoException("Não foi possível identificar o registro informado");
         }
-        this.atividadeRepository.save(atividade);
+
+        BeanUtils.copyProperties(atividadeDTO, atividadeBanco);
+
+        this.atividadeRepository.save(atividadeBanco);
     }
 
     @Transactional (rollbackFor = Exception.class)
