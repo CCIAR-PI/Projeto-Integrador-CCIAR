@@ -8,8 +8,6 @@ import projetointegrador.cciar.projetointegradorcciar.dto.AtividadeDTO;
 import projetointegrador.cciar.projetointegradorcciar.entity.Atividade;
 import projetointegrador.cciar.projetointegradorcciar.repository.AtividadeRepository;
 
-import java.time.format.DateTimeFormatter;
-
 @Service
 public class AtividadeService {
     @Autowired
@@ -20,8 +18,6 @@ public class AtividadeService {
 
         var atividade = new Atividade();
         BeanUtils.copyProperties(atividadeDTO, atividade);
-
-        validacao(atividadeDTO);
 
         this.atividadeRepository.save(atividade);
     }
@@ -37,8 +33,6 @@ public class AtividadeService {
         if (atividadeBanco == null || !atividadeBanco.getId().equals(id)) {
             throw new RegistroNaoEncontradoException("Não foi possível identificar o registro informado");
         }
-
-       validacao(atividadeDTO);
         this.atividadeRepository.save(atividade);
     }
 
@@ -58,13 +52,4 @@ public class AtividadeService {
             super(message);
         }
     }
-
-    public void validacao (AtividadeDTO atividadeDTO){
-        var atividade = new Atividade();
-        BeanUtils.copyProperties(atividadeDTO, atividade);
-
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
-        String horarioFormatado = atividade.getHorarioCadastro().format(formatter);
-    }
-
 }

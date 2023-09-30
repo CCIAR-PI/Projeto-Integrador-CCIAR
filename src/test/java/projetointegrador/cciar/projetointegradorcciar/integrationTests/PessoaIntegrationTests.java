@@ -120,7 +120,7 @@ class PessoaIntegrationTests {
 
     @Test
     @DisplayName("Valida a exceção que deve ser exibida caso o registro que deseja editar não exista")
-    public void testPutRegistroNaoEncontrado() {
+    void testPutRegistroNaoEncontrado() {
         PessoaDTO pessoaDTO = new PessoaDTO();
 
         Mockito.when(pessoaRepository.findById(1L)).thenReturn(java.util.Optional.empty());
