@@ -27,7 +27,6 @@ class EnderecoIntegrationTests {
 
     @MockBean
     EnderecoRepository enderecoRepository;
-
     @Autowired
     EnderecoService enderecoService;
 
@@ -51,7 +50,7 @@ class EnderecoIntegrationTests {
         Mockito.when(enderecoController.cadastrar(Mockito.any(EnderecoDTO.class))).thenReturn(ResponseEntity.ok("Endereco cadastrado com sucesso"));
 
         Pessoa pessoa = new Pessoa();
-        var endereco = enderecoController.cadastrar(new EnderecoDTO(pessoa, "85867-264", "testeLogradouro", "testeLocalidade", "testeBairro", 14, "testeUf"));
+        var endereco = enderecoController.cadastrar(new EnderecoDTO(1L, pessoa, "85867-264", "testeLogradouro", "testeLocalidade", "testeBairro", 14, "testeUf"));
 
         Assertions.assertEquals("Endereco cadastrado com sucesso", endereco.getBody());
     }
@@ -61,7 +60,7 @@ class EnderecoIntegrationTests {
     void  testControllerPostError() {
 
         Mockito.when(enderecoController.editar(Mockito.anyLong(),Mockito.any(EnderecoDTO.class))).thenReturn(ResponseEntity.badRequest().body("Ocorreu um erro durante o cadastro"));
-        var endereco = enderecoController.editar(1L, new EnderecoDTO(new Pessoa(), "85867-264", "testeLogradouro", "testeLocalidade", "testeBairro", 14, "testeUf"));
+        var endereco = enderecoController.editar(1L, new EnderecoDTO(1L, new Pessoa(), "85867-264", "testeLogradouro", "testeLocalidade", "testeBairro", 14, "testeUf"));
 
         Assertions.assertEquals("Ocorreu um erro durante o cadastro", endereco.getBody());
     }
@@ -71,7 +70,7 @@ class EnderecoIntegrationTests {
     void  testControllerPut() {
         Mockito.when(enderecoController.editar(Mockito.anyLong(), Mockito.any(EnderecoDTO.class))).thenReturn(ResponseEntity.ok("Atividade editada com sucesso"));
 
-        var endereco = enderecoController.editar(1L, new EnderecoDTO(new Pessoa(), "85867-264", "testeLogradouro", "testeLocalidade", "testeBairro", 14, "testeUf"));
+        var endereco = enderecoController.editar(1L, new EnderecoDTO(1L, new Pessoa(), "85867-264", "testeLogradouro", "testeLocalidade", "testeBairro", 14, "testeUf"));
 
         Assertions.assertEquals("Atividade editada com sucesso", endereco.getBody());
     }
@@ -81,7 +80,7 @@ class EnderecoIntegrationTests {
     void  testControllerPutErro() {
         Mockito.when(enderecoController.editar(Mockito.anyLong(), Mockito.any(EnderecoDTO.class))).thenReturn(ResponseEntity.badRequest().body("Ocorreu um erro"));
 
-        var endereco = enderecoController.editar(1L, new EnderecoDTO(new Pessoa(), "85867-264", "testeLogradouro", "testeLocalidade", "testeBairro", 14, "testeUf"));
+        var endereco = enderecoController.editar(1L, new EnderecoDTO(1L, new Pessoa(), "85867-264", "testeLogradouro", "testeLocalidade", "testeBairro", 14, "testeUf"));
 
         Assertions.assertEquals("Ocorreu um erro", endereco.getBody());
     }
@@ -128,6 +127,16 @@ class EnderecoIntegrationTests {
         }
     }
 
+    @Test
+    void testGetErrorMessage() {
+        enderecoController = new EnderecoController();
+
+        Exception exception = new RuntimeException("Mensagem de erro");
+        String errorMessage = enderecoController.getErrorMessage(exception);
+
+        Assertions.assertEquals("Error: Mensagem de erro", errorMessage);
+    }
+
     // * Testes Service * //
 
     @Test
@@ -139,6 +148,16 @@ class EnderecoIntegrationTests {
         Assertions.assertThrows(EnderecoService.RegistroNaoEncontradoException.class, () -> enderecoService.editarEndereco(1L, enderecoDTO));
     }
 
+    @Test
+     void testPutPessoaQuandoIdsNaoCorrespondem() {
+        Long id = 1L;
+        EnderecoDTO enderecoDTO = new EnderecoDTO();
+        Endereco enderecoBanco = new Endereco();
+        enderecoBanco.setId(2L);
+
+        Mockito.when(enderecoRepository.findById(id)).thenReturn(Optional.of(enderecoBanco));
+        Assertions.assertThrows(EnderecoService.RegistroNaoEncontradoException.class, () -> enderecoService.editarEndereco(id, enderecoDTO));
+    }
 
 
     @Test
@@ -148,6 +167,17 @@ class EnderecoIntegrationTests {
 
         Mockito.when(enderecoRepository.findById(1L)).thenReturn(java.util.Optional.empty());
         Assertions.assertThrows(EnderecoService.RegistroNaoEncontradoException.class, () -> enderecoService.deletarEndereco(1L));
+    }
+
+    @Test
+    void testDeletePessoaQuandoIdsNaoCorrespondem() {
+        Long id = 1L;
+        Endereco enderecoBanco = new Endereco();
+        enderecoBanco.setId(2L);
+
+
+        Mockito.when(enderecoRepository.findById(id)).thenReturn(Optional.of(enderecoBanco));
+        Assertions.assertThrows(EnderecoService.RegistroNaoEncontradoException.class, () -> enderecoService.deletarEndereco(id));
     }
 
     @Test
@@ -163,12 +193,27 @@ class EnderecoIntegrationTests {
     // * Testes Repository * //
 
     @Test
-    @DisplayName("Verifica se uma atividade é realmente salva no banco")
-    void testSaveBanco (){
-        Endereco endereco = new Endereco(1L, "85867-264", "testeLogradouro", "testeLocalidade", "testeBairro", 14, "testeUf");
-        Mockito.when(enderecoRepository.findById(1L)).thenReturn(java.util.Optional.of(endereco));
+    void testValidaEndereco() {
+        EnderecoDTO enderecoDTO = new EnderecoDTO();
+        Endereco enderecoExistente = new Endereco();
 
-        enderecoRepository.save(endereco);
-        Mockito.verify(enderecoRepository).save(endereco);
+        Mockito.when(enderecoRepository.findById(Mockito.any())).thenReturn(Optional.of(enderecoExistente));
+
+        enderecoService.validaEndereco(enderecoDTO);
+
+        Mockito.verify(enderecoRepository, Mockito.times(1)).save(Mockito.any());
+    }
+
+    @Test
+    void testValidaEnderecoPut() {
+        Long id = 1L;
+        EnderecoDTO enderecoDTO = new EnderecoDTO();
+        Endereco enderecoExistente = new Endereco();
+        enderecoExistente.setId(id);
+
+        Mockito.when(enderecoRepository.findById(id)).thenReturn(java.util.Optional.of(enderecoExistente));
+        enderecoService.editarEndereco(id, enderecoDTO);
+
+        Mockito.verify(enderecoRepository, Mockito.times(1)).save(Mockito.any());
     }
 }

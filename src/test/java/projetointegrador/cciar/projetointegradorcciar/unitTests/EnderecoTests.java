@@ -4,11 +4,15 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import projetointegrador.cciar.projetointegradorcciar.dto.EnderecoDTO;
+import projetointegrador.cciar.projetointegradorcciar.entity.Pessoa;
 
 @SpringBootTest
 class EnderecoTests {
 
     EnderecoDTO enderecoDTO = new EnderecoDTO();
+
+    EnderecoDTO enderecoDTO1 = new EnderecoDTO(1L, new Pessoa(), "85867-264", "testeLogradouro", "testeLocalidade", "testeBairro", 14, "testeUf");
+
 
     @Test
     void testCep (){
@@ -73,4 +77,12 @@ class EnderecoTests {
         enderecoDTO.setNumCasa(100);
         Assertions.assertEquals(100, enderecoDTO.getNumCasa());
     }
+
+    @Test
+    void idTest(){
+        enderecoDTO.setId(2L);
+        Assertions.assertEquals(2L, enderecoDTO.getId());
+    }
 }
+
+

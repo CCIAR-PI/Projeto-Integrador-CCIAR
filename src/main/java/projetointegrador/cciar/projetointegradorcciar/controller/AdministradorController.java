@@ -30,7 +30,7 @@ public class AdministradorController {
 
 
     @GetMapping("/lista")
-    public ResponseEntity<List <Administrador>> listaCompleta() {
+    public ResponseEntity<List<Administrador>> listaCompleta() {
         return ResponseEntity.ok(this.administradorRep.findAll());
 
     }
@@ -68,7 +68,7 @@ public class AdministradorController {
         }
     }
 
-    private String getErrorMessage(Exception e) {
+    public String getErrorMessage(Exception e) {
         return "Error: " + e.getMessage();
     }
 }

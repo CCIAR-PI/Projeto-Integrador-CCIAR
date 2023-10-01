@@ -128,6 +128,16 @@ class AtividadeIntegrationTests {
         }
     }
 
+    @Test
+    void testGetErrorMessage() {
+        AtividadeController atividadeController = new AtividadeController();
+
+        Exception exception = new RuntimeException("Mensagem de erro");
+        String errorMessage = atividadeController.getErrorMessage(exception);
+
+        Assertions.assertEquals("Error: Mensagem de erro", errorMessage);
+    }
+
     // * Testes Service * //
     @Test
     @DisplayName("Valida a exceção que deve ser exibida caso o registro que deseja editar não exista")
@@ -139,12 +149,35 @@ class AtividadeIntegrationTests {
     }
 
     @Test
+    void testPutPessoaQuandoIdsNaoCorrespondem() {
+        Long id = 1L;
+        AtividadeDTO atividadeDTO = new AtividadeDTO();
+        Atividade atividadeBanco = new Atividade();
+        atividadeBanco.setId(2L);
+
+
+        Mockito.when(atividadeRepository.findById(id)).thenReturn(Optional.of(atividadeBanco));
+        Assertions.assertThrows(AtividadeService.RegistroNaoEncontradoException.class, () -> atividadeService.editarAtividade(id, atividadeDTO));
+    }
+
+    @Test
     @DisplayName("Valida a exceção que deve ser exibida caso o registro que deseja excluir não exista")
     void testExcluirRegistroNaoEncontrado() {
         AtividadeDTO atividadeDTO = new AtividadeDTO();
 
         Mockito.when(atividadeRepository.findById(1L)).thenReturn(java.util.Optional.empty());
         Assertions.assertThrows(AtividadeService.RegistroNaoEncontradoException.class, () -> atividadeService.deletarAtividade(1L));
+    }
+
+    @Test
+    void testDeletePessoaQuandoIdsNaoCorrespondem() {
+        Long id = 1L;
+        Atividade atividadeBanco = new Atividade();
+        atividadeBanco.setId(2L);
+
+
+        Mockito.when(atividadeRepository.findById(id)).thenReturn(Optional.of(atividadeBanco));
+        Assertions.assertThrows(AtividadeService.RegistroNaoEncontradoException.class, () -> atividadeService.deletarAtividade(id));
     }
 
     @Test
@@ -160,12 +193,27 @@ class AtividadeIntegrationTests {
 
     // * Teste repository * //
     @Test
-    @DisplayName("Verifica se uma atividade é realmente salva no banco")
-    void testSaveBanco (){
-        Atividade atividade = new Atividade(1L, true, "testeAtiv", "descricaoAtiv", LocalTime.now(), LocalDateTime.now());
-        Mockito.when(atividadeRepository.findById(1L)).thenReturn(java.util.Optional.of(atividade));
+    void testValidaAtividade() {
+        AtividadeDTO atividadeDTO = new AtividadeDTO();
+        Atividade atividadeExistente = new Atividade();
 
-        atividadeRepository.save(atividade);
-        Mockito.verify(atividadeRepository).save(atividade);
+        Mockito.when(atividadeRepository.findById(Mockito.any())).thenReturn(Optional.of(atividadeExistente));
+
+        atividadeService.validaAtividade(atividadeDTO);
+
+        Mockito.verify(atividadeRepository, Mockito.times(1)).save(Mockito.any());
+    }
+
+    @Test
+    void testValidaAtividadePut() {
+        Long id = 1L;
+        AtividadeDTO atividadeDTO = new AtividadeDTO();
+        Atividade atividadeExistente = new Atividade();
+        atividadeExistente.setId(id);
+
+        Mockito.when(atividadeRepository.findById(id)).thenReturn(java.util.Optional.of(atividadeExistente));
+        atividadeService.editarAtividade(id, atividadeDTO);
+
+        Mockito.verify(atividadeRepository, Mockito.times(1)).save(Mockito.any());
     }
 }

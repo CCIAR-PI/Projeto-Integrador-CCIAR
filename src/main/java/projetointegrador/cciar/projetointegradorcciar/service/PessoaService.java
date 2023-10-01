@@ -10,6 +10,8 @@ import projetointegrador.cciar.projetointegradorcciar.entity.Pessoa;
 import projetointegrador.cciar.projetointegradorcciar.repository.AdministradorRepository;
 import projetointegrador.cciar.projetointegradorcciar.repository.PessoaRepository;
 
+import java.time.LocalDateTime;
+
 @Service
 public class PessoaService {
     @Autowired
@@ -25,12 +27,14 @@ public class PessoaService {
         BeanUtils.copyProperties(pessoaDTO, pessoa);
 
         Pessoa pessoaExistente = pessoaRepository.findByCpf(pessoa.getCpf());
+
         Assert.isTrue(pessoaExistente == null || pessoaExistente.equals(pessoa.getCpf()), "CPF Já existente");
 
         Pessoa rgExistente = pessoaRepository.findByRg(pessoa.getRg());
         Assert.isTrue(rgExistente == null || rgExistente.equals(pessoa.getRg()), "RG Já existente");
 
         pessoa.setAtivo(true);
+        pessoa.setDataCadastro(LocalDateTime.now());
         this.pessoaRepository.save(pessoa);
     }
 
@@ -45,6 +49,7 @@ public class PessoaService {
         if (pessoaBanco == null || !pessoaBanco.getId().equals(id)){
             throw new RegistroNaoEncontradoException("Não foi possível identificar o registro informado");
         }
+        pessoa.setEdicaoCadastro(LocalDateTime.now());
         this.pessoaRepository.save(pessoa);
     }
 

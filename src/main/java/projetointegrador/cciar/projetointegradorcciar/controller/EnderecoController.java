@@ -65,7 +65,7 @@ public class EnderecoController {
         }
     }
 
-    private String getErrorMessage(Exception e) {
+    public String getErrorMessage(Exception e) {
         return "Error: " + e.getMessage();
     }
 }

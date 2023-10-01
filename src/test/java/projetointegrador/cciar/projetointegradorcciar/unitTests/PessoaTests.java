@@ -171,6 +171,11 @@ class PessoaTests {
         pessoaDTO.setCadastroPor(administrador);
         Assertions.assertNotNull(pessoaDTO.getCadastroPor());
     }
+    @Test
+    void idTest (){
+        pessoaDTO.setId(1L);
+        Assertions.assertEquals(1L, pessoaDTO.getId());
+    }
 }
 
 

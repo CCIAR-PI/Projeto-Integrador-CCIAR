@@ -41,10 +41,4 @@ public class Atividade {
 
     @Column (name = "data_atividade")
     private LocalDateTime dataAtividade;
-
-    @PrePersist
-    private void prePersist () {
-        this.horarioCadastro = LocalTime.now();
-        this.ativo = true;
-    }
 }

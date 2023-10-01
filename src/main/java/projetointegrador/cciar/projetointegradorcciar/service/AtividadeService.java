@@ -8,6 +8,8 @@ import projetointegrador.cciar.projetointegradorcciar.dto.AtividadeDTO;
 import projetointegrador.cciar.projetointegradorcciar.entity.Atividade;
 import projetointegrador.cciar.projetointegradorcciar.repository.AtividadeRepository;
 
+import java.time.LocalDateTime;
+
 @Service
 public class AtividadeService {
     @Autowired
@@ -19,6 +21,7 @@ public class AtividadeService {
         var atividade = new Atividade();
         BeanUtils.copyProperties(atividadeDTO, atividade);
 
+        atividade.setDataAtividade(LocalDateTime.now());
         this.atividadeRepository.save(atividade);
     }
 

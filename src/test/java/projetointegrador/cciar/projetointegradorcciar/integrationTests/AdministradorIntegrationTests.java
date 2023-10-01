@@ -4,7 +4,6 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -19,13 +18,15 @@ import projetointegrador.cciar.projetointegradorcciar.service.AdministradorServi
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+
 @SpringBootTest
 class AdministradorIntegrationTests {
 
     @MockBean
     AdministradorRepository administradorRepository;
 
-    @Mock
+    @MockBean
     AdministradorController administradorController;
 
     @Autowired
@@ -125,8 +126,38 @@ class AdministradorIntegrationTests {
         }
     }
 
+    @Test
+    void testGetErrorMessage() {
+        administradorController = new AdministradorController();
+
+        Exception exception = new RuntimeException("Mensagem de erro");
+        String errorMessage = administradorController.getErrorMessage(exception);
+
+        Assertions.assertEquals("Error: Mensagem de erro", errorMessage);
+    }
 
     // * Testes service * //
+    @Test
+    @DisplayName("O mockito faz uma simulação de que existe uma pessoa já com um determinado CPF existente e valida se nesse caso é retornado uma exception")
+    void testCpfExistente() {
+        AdministradorDTO administradorDTO = new AdministradorDTO();
+        administradorDTO.setCpf("11728363969");
+
+        Mockito.when(administradorRepository.findByCpf(Mockito.any())).thenReturn(new Administrador());
+
+        Assertions.assertThrows(IllegalArgumentException.class, () -> administradorService.validaAdm(administradorDTO));
+    }
+
+    @Test
+    void testValidaAdm_CpfNaoExistente() {
+        AdministradorDTO administradorDTO = new AdministradorDTO();
+        administradorDTO.setCpf("cpfNaoExistente");
+
+        Mockito.when(administradorRepository.findByCpf("cpfNaoExistente")).thenReturn(null);
+
+        Assertions.assertDoesNotThrow(() -> administradorService.validaAdm(administradorDTO));
+    }
+
     @Test
     @DisplayName("Valida a exceção que deve ser exibida caso o registro que deseja editar não exista")
     void testEditarRegistroNaoEncontrado() {
@@ -134,6 +165,17 @@ class AdministradorIntegrationTests {
 
         Mockito.when(administradorRepository.findById(1L)).thenReturn(java.util.Optional.empty());
         Assertions.assertThrows(AdministradorService.RegistroNaoEncontradoException.class, () -> administradorService.editaAdm(1L, administradorDTO));
+    }
+
+    @Test
+    void testPutPessoaQuandoIdsNaoCorrespondem() {
+        Long id = 1L;
+        AdministradorDTO administradorDTO = new AdministradorDTO();
+        Administrador administradorBanco = new Administrador();
+        administradorBanco.setId(2L);
+
+        Mockito.when(administradorRepository.findById(id)).thenReturn(Optional.of(administradorBanco));
+        Assertions.assertThrows(AdministradorService.RegistroNaoEncontradoException.class, () -> administradorService.editaAdm(id, administradorDTO));
     }
 
     @Test
@@ -146,25 +188,52 @@ class AdministradorIntegrationTests {
     }
 
     @Test
-    @DisplayName("Valida se um ADM é realmente deletada do banco")
-    void testDeleteAdm() {
-        Pessoa pessoa = new Pessoa();
-        Administrador administrador = new Administrador(pessoa, 1L, "TesteNome2", "loginNome2",  "(45)88865-6820", "senhaTest2", "emailTest2", "emailRecupTest2", "00859026914");
-        Mockito.when(administradorRepository.findById(1L)).thenReturn(java.util.Optional.of(administrador));
+    void testDeletePessoaQuandoIdsNaoCorrespondem() {
+        Long id = 1L;
+        Administrador administradorBanco = new Administrador();
+        administradorBanco.setId(2L);
 
-        administradorService.deletaAdm(1L);
-        Mockito.verify (administradorRepository).delete(administrador);
+        Mockito.when(administradorRepository.findById(id)).thenReturn(Optional.of(administradorBanco));
+        Assertions.assertThrows(AdministradorService.RegistroNaoEncontradoException.class, () -> administradorService.deletaAdm(id));
     }
+
 
     // * Testes Repository * //
     @Test
-    @DisplayName("Verifica se um ADM é realmente salva no banco")
-    void testSaveBanco (){
-        Pessoa pessoa = new Pessoa();
-        Administrador administrador = new Administrador(pessoa, 1L, "TesteNome2", "loginNome2",  "(45)88865-6820", "senhaTest2", "emailTest2", "emailRecupTest2", "00859026914");
-        Mockito.when(administradorRepository.findById(1L)).thenReturn(java.util.Optional.of(administrador));
+    void testValidaAdm() {
+        AdministradorDTO administradorDTO = new AdministradorDTO();
+        Administrador administradorExistente = null;
 
-        administradorRepository.save(administrador);
-        Mockito.verify(administradorRepository).save(administrador);
+        Mockito.when(administradorRepository.findByCpf(Mockito.any())).thenReturn(administradorExistente);
+
+        administradorService.validaAdm(administradorDTO);
+
+        Mockito.verify(administradorRepository, Mockito.times(1)).save(Mockito.any());
+    }
+
+    @Test
+    void testValidaAdmPut() {
+        Long id = 1L;
+        AdministradorDTO administradorDTO = new AdministradorDTO();
+        Administrador administradorExistente = new Administrador();
+        administradorExistente.setId(id);
+
+        Mockito.when(administradorRepository.findById(id)).thenReturn(java.util.Optional.of(administradorExistente));
+        administradorService.editaAdm(id, administradorDTO);
+
+        Mockito.verify(administradorRepository, Mockito.times(1)).save(Mockito.any());
+    }
+
+    @Test
+    void testDeletaAdmComSucesso() {
+        Long id = 1L;
+        Administrador administradorNoBanco = new Administrador();
+        administradorNoBanco.setId(id);
+
+
+        Mockito.when(administradorRepository.findById(id)).thenReturn(Optional.of(administradorNoBanco));
+        administradorService.deletaAdm(id);
+
+        Mockito.verify(administradorRepository, Mockito.times(1)).delete(administradorNoBanco);
     }
 }

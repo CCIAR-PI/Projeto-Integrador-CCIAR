@@ -15,6 +15,7 @@ import projetointegrador.cciar.projetointegradorcciar.entity.Pessoa;
 @AllArgsConstructor
 public class EnderecoDTO {
 
+    private Long id;
     private Pessoa pessoa;
     @NotNull(message = "CEP não pode ser nulo")
     @NotBlank(message = "CEP não pode estar em branco")

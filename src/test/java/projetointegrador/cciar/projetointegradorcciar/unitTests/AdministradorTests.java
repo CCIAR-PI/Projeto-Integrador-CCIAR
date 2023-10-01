@@ -93,4 +93,10 @@ class AdministradorTests {
         administradorDTO.setEmailRecup("testemailrecup@gmail.com");
         Assertions.assertNotNull(administradorDTO.getEmailRecup());
     }
+
+    @Test
+    void idTest (){
+        administradorDTO.setId(1L);
+        Assertions.assertEquals(1L, administradorDTO.getId());
+    }
 }

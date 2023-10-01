@@ -64,20 +64,5 @@ public class Pessoa {
 
     @Column (name = "ativo", nullable = false)
     private boolean ativo;
-
-    @PrePersist
-    private void prePersist ()
-    {
-        this.dataCadastro = LocalDateTime.now();
-        this.ativo = true;
-    }
-
-    @PreUpdate
-    private void preUpdate ()
-    {
-        this.edicaoCadastro = LocalDateTime.now();
-    }
-
-
 }
 
