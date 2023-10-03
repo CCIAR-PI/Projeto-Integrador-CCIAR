@@ -51,7 +51,7 @@ class AdministradorIntegrationTests {
     void  testControllerPost() {
         Mockito.when(administradorController.cadastrar(Mockito.any(AdministradorDTO.class))).thenReturn(ResponseEntity.ok("Atividade cadastrada com sucesso"));
 
-        var administrador = administradorController.cadastrar(new AdministradorDTO(1L, "TesteNome2", "loginNome2",  "(45)88865-6820", "senhaTest2", "emailTest2", "emailRecupTest2", "00859026914"));
+        var administrador = administradorController.cadastrar(new AdministradorDTO(1L, new Pessoa(), "TesteNome2", "loginNome2",  "(45)88865-6820", "senhaTest2", "emailTest2", "emailRecupTest2", "00859026914"));
 
         Assertions.assertEquals("Atividade cadastrada com sucesso", administrador.getBody());
     }
@@ -61,7 +61,7 @@ class AdministradorIntegrationTests {
     void  testControllerPostError() {
 
         Mockito.when(administradorController.cadastrar(Mockito.any(AdministradorDTO.class))).thenReturn(ResponseEntity.badRequest().body("Ocorreu um erro durante o cadastro"));
-        var administrador = administradorController.cadastrar(new AdministradorDTO(1L, "TesteNome2", "loginNome2",  "(45)88865-6820", "senhaTest2", "emailTest2", "emailRecupTest2", "00859026914"));
+        var administrador = administradorController.cadastrar(new AdministradorDTO(1L, new Pessoa(), "TesteNome2", "loginNome2",  "(45)88865-6820", "senhaTest2", "emailTest2", "emailRecupTest2", "00859026914"));
 
         Assertions.assertEquals("Ocorreu um erro durante o cadastro", administrador.getBody());
     }
@@ -70,7 +70,7 @@ class AdministradorIntegrationTests {
     @DisplayName ("Verifica se o retorno do metodo PUT é uma mensagem de sucesso")
     void testPut () {
         Mockito.when(administradorController.editar(Mockito.anyLong(), Mockito.any(AdministradorDTO.class))).thenReturn(ResponseEntity.ok("Pessoa editada com sucesso"));
-        var administrador = administradorController.editar(1L, new AdministradorDTO(1L, "TesteNome2", "loginNome2",  "(45)88865-6820", "senhaTest2", "emailTest2", "emailRecupTest2", "00859026914"));
+        var administrador = administradorController.editar(1L, new AdministradorDTO(1L, new Pessoa(), "TesteNome2", "loginNome2",  "(45)88865-6820", "senhaTest2", "emailTest2", "emailRecupTest2", "00859026914"));
 
         Assertions.assertEquals("Pessoa editada com sucesso", administrador.getBody());
     }
@@ -80,7 +80,7 @@ class AdministradorIntegrationTests {
     void  testControllerPutError() {
 
         Mockito.when(administradorController.editar(Mockito.anyLong(),Mockito.any(AdministradorDTO.class))).thenReturn(ResponseEntity.badRequest().body("Ocorreu um erro durante o cadastro"));
-        var administrador = administradorController.editar(1L, new AdministradorDTO(1L, "TesteNome2", "loginNome2",  "(45)88865-6820", "senhaTest2", "emailTest2", "emailRecupTest2", "00859026914"));
+        var administrador = administradorController.editar(1L, new AdministradorDTO(1L, new Pessoa(), "TesteNome2", "loginNome2",  "(45)88865-6820", "senhaTest2", "emailTest2", "emailRecupTest2", "00859026914"));
 
         Assertions.assertEquals("Ocorreu um erro durante o cadastro", administrador.getBody());
     }

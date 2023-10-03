@@ -1,5 +1,6 @@
 package projetointegrador.cciar.projetointegradorcciar.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -27,6 +28,7 @@ public class Endereco {
     private Long id;
 
     @OneToOne(mappedBy = "endereco") // Nome do campo em Pessoa
+    @JsonBackReference
     private Pessoa pessoa;
 
     @Column (name = "cep")

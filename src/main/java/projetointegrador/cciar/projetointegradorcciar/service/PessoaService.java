@@ -11,6 +11,7 @@ import projetointegrador.cciar.projetointegradorcciar.repository.AdministradorRe
 import projetointegrador.cciar.projetointegradorcciar.repository.PessoaRepository;
 
 import java.time.LocalDateTime;
+import java.time.Year;
 
 @Service
 public class PessoaService {
@@ -33,6 +34,11 @@ public class PessoaService {
         Pessoa rgExistente = pessoaRepository.findByRg(pessoa.getRg());
         Assert.isTrue(rgExistente == null || rgExistente.equals(pessoa.getRg()), "RG Já existente");
 
+        final int anoLimite = Year.now().getValue();
+
+        Assert.isTrue(pessoa.getDataNascimento() <= anoLimite, "Ano limite excedido");
+
+
         pessoa.setAtivo(true);
         pessoa.setDataCadastro(LocalDateTime.now());
         this.pessoaRepository.save(pessoa);
@@ -51,6 +57,7 @@ public class PessoaService {
         }
         pessoa.setEdicaoCadastro(LocalDateTime.now());
         this.pessoaRepository.save(pessoa);
+
     }
 
     @Transactional (rollbackFor = Exception.class)

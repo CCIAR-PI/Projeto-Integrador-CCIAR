@@ -29,6 +29,7 @@ public class Pessoa {
 
     @OneToOne
     @JoinColumn(name = "endereco_id")
+    @JsonManagedReference
     private Endereco endereco;
     @Column (name = "data_nascimento", nullable = false)
     private int dataNascimento;

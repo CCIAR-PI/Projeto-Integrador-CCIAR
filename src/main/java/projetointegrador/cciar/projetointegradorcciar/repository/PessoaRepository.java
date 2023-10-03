@@ -10,4 +10,5 @@ public interface PessoaRepository extends JpaRepository<Pessoa,Long> {
 
     List <Pessoa> findByNome (String nome);
     Pessoa findByRg (String rg);
+
 }

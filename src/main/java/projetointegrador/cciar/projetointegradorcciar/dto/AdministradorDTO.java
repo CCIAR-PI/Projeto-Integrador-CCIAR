@@ -8,6 +8,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.validation.annotation.Validated;
+import projetointegrador.cciar.projetointegradorcciar.entity.Pessoa;
 
 @Getter
 @Setter
@@ -17,6 +18,9 @@ import org.springframework.validation.annotation.Validated;
 public class AdministradorDTO {
 
     private Long id;
+
+    private Pessoa pessoa;
+
     @NotNull(message = "Nome não pode ser nulo")
     @NotBlank(message = "Nome não estar ser em branco")
     @Size(max = 50, message = "Nome excede limite de caracteres")
