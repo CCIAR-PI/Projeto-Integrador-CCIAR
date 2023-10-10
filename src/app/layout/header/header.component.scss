@@ -1,0 +1,48 @@
+*{
+    font-family: 'Rubik', sans-serif;
+}
+
+.logo {
+
+    height: 100px;
+    width: 80px;
+}
+
+body {
+    font-family: 'Rubik', sans-serif;
+}
+
+.row {
+    margin: 0;
+}
+
+.container {
+    padding: 70px 0;
+}
+
+p,li {
+    color: #444;
+    font-size: 14px;
+}
+
+header, .navbar {
+    background-color: #287261;
+}
+
+#nav-container{
+    padding-top : 0;
+    padding-bottom: 0;
+}
+
+.navbar-brand {
+    padding: 0;
+}
+
+.navbar-brand:hover{
+    color: white;
+}
+
+.navbar-expand-lg .navbar-nav .nav-link{
+    padding: 1rem .8rem;
+}
+

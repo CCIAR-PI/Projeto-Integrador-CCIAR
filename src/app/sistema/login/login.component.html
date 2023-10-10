@@ -1,0 +1,60 @@
+
+
+<div class="wrapper fadeInDown">
+    
+        <div id="formContent">
+        <!-- Tabs Titles -->
+    
+        <div class="fadeInDown">
+            <img class="logo" src="https://www5.pmfi.pr.gov.br/images/logo.png">
+            <h1 class="escritalogo">Centro de Convivência Afra Roth</h1>
+        </div>
+
+        <div><a class="ajustarTituloLogin">Bem-vindo(a)!</a></div><br>
+        <div><a class="ajustarSubTitulo">Faça seu login</a></div>
+    
+        <!-- Login Form -->
+        <form class="form">
+            <input
+            type="text"
+            id="login"
+            class="fadeIn second"
+            name="login"
+            placeholder="Login"
+            />
+            <span class="underline"></span>
+            <input
+            type="text"
+            id="senha"
+            class="fadeIn third"
+            name="senha"          
+            placeholder="Senha"
+            />
+            <span class="underline"></span>
+        
+            <button
+            (click)="login()"
+            type="button"
+            class="fadeIn fourth button-property full-width"
+            routerLink="/admin"
+            >
+            Login
+            </button>
+        </form>
+    
+        <!-- Remind Passowrd -->
+        <div id="formFooter">
+            <div style="float: left;">
+
+    
+            <div style="float: right; margin-top: 23px;margin-right: 21px;">
+            <a class="underlineHover" href="#" style="text-decoration: underline;"
+                target="_blank">Esqueceu sua senha?</a>
+            </div>
+            
+        </div>
+        </div>
+    
+  </div>
+
+  
