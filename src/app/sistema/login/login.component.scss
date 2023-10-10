@@ -19,7 +19,7 @@ html {
 
   .escritalogo {
 
-    position: absolute;
+    
     display: flex;
     margin-top: 100px;
     font-size: 10px;
@@ -30,7 +30,7 @@ html {
   .logo {
 
     display: flex;
-    position: absolute;
+    
     margin-top: 50px;
     margin-left: 75px;
     width: 250px;
@@ -41,9 +41,9 @@ html {
   
   /* STRUCTURE */
   
-  .wrapper {
+  .container {
     display: flex;
-    position: absolute;
+    
     align-items: center;
     flex-direction: column;
     justify-content: center;
@@ -90,7 +90,6 @@ html {
     width: 200px;
     border-top: 2px solid black;
     height: 1px;
-    position: absolute;
     right: 157px;
     margin-top: 9px;
   }
